@@ -1,0 +1,40 @@
+spring:
+  cloud:
+    function:
+      definition: getFraudStatus
+    stream:
+      bindings:
+        getFraudStatus-in-0:
+          destination: q.fraudCheck.fraudDetectionService
+          group: myconsumergroup
+          binder: solace-broker
+        getFraudStatus-out-0:
+          # The function will generate the outbound topic dynamically. This setting is not expected to be used by the binder.
+          destination: topic-not-used
+          binder: solace-broker
+      binders:  
+      #This section of the configuration tells the solace binder how to connect to the solace event broker/mesh 
+        solace-broker:  
+          type: solace 
+          environment: 
+            solace: 
+              java: 
+                host: tcp://public-demo-broker.messaging.solace.cloud:55555 
+                msgVpn: cloud-demo-solace-uk 
+                clientUsername: scs-demo-public-user 
+                clientPassword: scs-demo-public-user 
+                connectRetries: 3 
+                connectRetriesPerHost: 0 
+                reconnectRetries: 3 
+      solace:
+        bindings:
+          getFraudStatus-in-0:
+            consumer:
+              queueAdditionalSubscriptions: myBank/cards/fraudCheck/fraud/status/get/v1/>
+              provisionDurableQueue: true
+              queueNamePrefix: ""
+              useFamiliarityInQueueName: false
+              useDestinationEncodingInQueueName: false
+              useGroupNameInQueueName: false
+              
+              
