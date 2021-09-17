@@ -188,8 +188,8 @@ This project is licensed under the Apache License, Version 2.0. - See the [LICEN
 ## Resources
 
 For more information try these resources:
-- Developer [tutorials/codelabs](https://codelabs.solace.dev/codelabs/solace-workshop-scs/index.html) using the Solace Sping Binder
-- The Solace Sping Cloud Streams Project on [GitHub](https://github.com/SolaceProducts/solace-spring-cloud)
+- Developer [tutorials/codelabs](https://codelabs.solace.dev/codelabs/solace-workshop-scs/index.html) using the Solace Spring Binder
+- The Solace Spring Cloud Streams Project on [GitHub](https://github.com/SolaceProducts/solace-spring-cloud)
 - Get a better understanding of [Solace Event Brokers](https://solace.com/products/event-broker/)
 - The Solace [Developer Portal](https://solace.dev)
 - Check out the [Solace blog](https://solace.com/blog/) for other interesting discussions around Solace technology
