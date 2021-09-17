@@ -1,17 +1,26 @@
 spring:
   cloud:
     function:
-      definition: sendErrorResponse
+      definition: sendErrorResponse;sendTimeoutResponse
     stream:
       bindings:
         sendErrorResponse-in-0:
-          destination: q.fraudCheck.apiErrorHandlingService
+          destination: q.fraudCheck.apiErrorHandlingService_1
           group: myconsumergroup
           binder: solace-broker
         sendErrorResponse-out-0:
           # The function will generate the outbound topic dynamically. This setting is not expected to be used by the binder.
           destination: topic-not-used
           binder: solace-broker
+          
+        sendTimeoutResponse-in-0:
+          destination: q.fraudCheck.apiErrorHandlingService_2
+          group: myconsumergroup
+          binder: solace-broker
+        sendTimeoutResponse-out-0:
+          # The function will generate the outbound topic dynamically. This setting is not expected to be used by the binder.
+          destination: topic-not-used
+          binder: solace-broker          
       binders:  
       #This section of the configuration tells the solace binder how to connect to the solace event broker/mesh 
         solace-broker:  
@@ -30,11 +39,19 @@ spring:
         bindings:
           sendErrorResponse-in-0:
             consumer:
-              queueAdditionalSubscriptions: myBank/cards/fraudCheck/errors
+              queueAdditionalSubscriptions: myBank/cards/fraudCheckApi/error
               provisionDurableQueue: true
               queueNamePrefix: ""
               useFamiliarityInQueueName: false
               useDestinationEncodingInQueueName: false
               useGroupNameInQueueName: false
+              
+          sendTimeoutResponse-in-0:
+            consumer:
+              provisionDurableQueue: true
+              queueNamePrefix: ""
+              useFamiliarityInQueueName: false
+              useDestinationEncodingInQueueName: false
+              useGroupNameInQueueName: false              
               
               

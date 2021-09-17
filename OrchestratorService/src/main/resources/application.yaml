@@ -57,7 +57,7 @@ spring:
         bindings:
           getRecentTransactions-in-0:
             consumer:
-              queueAdditionalSubscriptions: myBank/cards/fraudCheck/status/v1/>
+              queueAdditionalSubscriptions: myBank/cards/fraudCheckApi/status/v1/>
               provisionDurableQueue: true
               queueNamePrefix: ""
               useFamiliarityInQueueName: false
@@ -66,7 +66,7 @@ spring:
         
           getFraudStatus-in-0:
             consumer:
-              queueAdditionalSubscriptions: myBank/cards/fraudCheck/responses/txn/history/v1/>
+              queueAdditionalSubscriptions: myBank/cards/fraudCheckApi/reply/txnService/history/v1/>
               provisionDurableQueue: true
               queueNamePrefix: ""
               useFamiliarityInQueueName: false
@@ -75,7 +75,7 @@ spring:
               
           requestCardBlock-in-0:
             consumer:
-              queueAdditionalSubscriptions: myBank/cards/fraudCheck/responses/fraud/status/v1/>
+              queueAdditionalSubscriptions: myBank/cards/fraudCheckApi/reply/fraudService/status/v1/>
               provisionDurableQueue: true
               queueNamePrefix: ""
               useFamiliarityInQueueName: false
@@ -84,7 +84,7 @@ spring:
         
           returnFinalResponse-in-0:
             consumer:
-              queueAdditionalSubscriptions: myBank/cards/fraudCheck/responses/fraud/status/v1/>
+              queueAdditionalSubscriptions: myBank/cards/fraudCheckApi/reply/fraudService/status/v1/>
               provisionDurableQueue: true
               queueNamePrefix: ""
               useFamiliarityInQueueName: false

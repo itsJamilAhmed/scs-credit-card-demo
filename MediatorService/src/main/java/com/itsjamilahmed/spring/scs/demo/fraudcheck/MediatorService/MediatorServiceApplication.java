@@ -42,13 +42,13 @@ public class MediatorServiceApplication {
 	// As per the internal topic taxonomy, where should the newly created event representing this API operation go?
 	// There will be a topic 'root' that is static, then some properties at the end to identify the event more specifically
 	// In a real application, these can be configuration properties managed externally to the code
-	static final String EVENT_TOPIC_OUT_ROOT = "myBank/cards/fraudCheck/status";
+	static final String EVENT_TOPIC_OUT_ROOT = "myBank/cards/fraudCheckApi/status";
 	static final String EVENT_TOPIC_OUT_VERSION = "v1";
 	
 	
 	// Any requests that could not get processed properly, send to an error topic to be picked up by a dedicated service. 
 	// (e.g. Construct an appropriate error message and send back to the waiting microgateway reply-to and onwards to the API caller.)
-	static final String EVENT_TOPIC_OUT_ERROR = "myBank/cards/fraudCheck/errors";
+	static final String EVENT_TOPIC_OUT_ERROR = "myBank/cards/fraudCheckApi/error";
 	
 	
 	public static void main(String[] args) {

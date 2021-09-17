@@ -75,4 +75,40 @@ public class ApiErrorHandlingServiceApplication {
 			return output;
 		};
 	}
+	
+	@Bean
+	// Purpose: Detect failure to process requests from the external API by the orchestrator service and handle the timeout
+	//  * This service will see on its inbound queue the messages from the orchestrator's queue that TTL expired
+	//  * (It's queue is essentially the dead-message-queue for the main queue)
+	//  * This provides an opportunity to intercept this request and respond to the external API with a cancelled response
+	//  * The API call can be retried and the caller may prefer a fast-fail versus a prolonged lack of response.
+	public Function<Message<String>, Message<String>> sendTimeoutResponse(){
+		return input -> {
+			
+			String payload = input.getPayload();
+			JSONObject jsonMessage;
+			log.info("Received timeout message to process: " + input.getPayload());
+			
+			jsonMessage = new JSONObject();
+			jsonMessage.put("status", "error");
+			jsonMessage.put("errorMsg", "The request timed out due to an internal error. Please retry the operation.");	
+
+			
+			// May as well calculate the elapsed time between receiving the original request and this error event
+			long errorMessageTimestampMs = Long.parseLong(input.getHeaders().getOrDefault(SOL_MSG_TIMESTAMP_KEY, "0").toString());
+			long originalRequestTimestampMs = Long.parseLong(input.getHeaders().getOrDefault(MEDIATOR_MSG_TIMESTAMP_KEY, "0").toString());
+			
+			jsonMessage.put("elapsedTimeMs", errorMessageTimestampMs - originalRequestTimestampMs); 
+			
+			// There is an external HTTP API call expected to be waiting for this response, with the reply-to topic known as well for the TARGET_DESTINATION header.
+			// If this is missing to trigger an exception, something has gone very wrong...
+			Message<String> output = MessageBuilder.withPayload(jsonMessage.toString())
+					.setHeader(SOL_CORRELATION_ID_KEY, input.getHeaders().getOrDefault(MEDIATOR_CORRELATION_ID_KEY, ""))
+					.setHeader(BinderHeaders.TARGET_DESTINATION, input.getHeaders().getOrDefault(MEDIATOR_REPLYTO_DESTINATION_KEY, "error/fallback/topic/here").toString())
+					.build();
+			
+			return output;
+		};
+	}
+	
 }

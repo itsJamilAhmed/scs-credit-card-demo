@@ -35,17 +35,17 @@ public class OrchestratorServiceApplication {
 	
 	// Root topic of various services this orchestrator will leverage
 	static final String EVENT_TOPIC_OUT_ROOT_TXN =        "myBank/cards/txnService/history/get/v1";
-	static final String EVENT_TOPIC_OUT_ROOT_FRAUDCHECK = "myBank/cards/fraudCheck/fraud/status/get/v1";
-	static final String EVENT_TOPIC_OUT_ROOT_CARDBLOCK =  "myBank/cards/fraudCheck/cards/block/req/v1";
+	static final String EVENT_TOPIC_OUT_ROOT_FRAUDCHECK = "myBank/cards/fraudService/status/get/v1";
+	static final String EVENT_TOPIC_OUT_ROOT_CARDBLOCK =  "myBank/cards/cardService/block/req/v1";
 	
 	// Root of reply-to topics to get various responses back to this service
-	static final String REPLY_TO_TOPIC_ROOT_TXN =        "myBank/cards/fraudCheck/responses/txn/history/v1";
-	static final String REPLY_TO_TOPIC_ROOT_FRAUDCHECK = "myBank/cards/fraudCheck/responses/fraud/status/v1";
-	static final String REPLY_TO_TOPIC_ROOT_CARDBLOCK =  "myBank/cards/fraudCheck/responses/cards/block/v1";
+	static final String REPLY_TO_TOPIC_ROOT_TXN =        "myBank/cards/fraudCheckApi/reply/txnService/history/v1";
+	static final String REPLY_TO_TOPIC_ROOT_FRAUDCHECK = "myBank/cards/fraudCheckApi/reply/fraudService/status/v1";
+	static final String REPLY_TO_TOPIC_ROOT_CARDBLOCK =  "myBank/cards/fraudCheckApi/reply/cardService/block/v1";
 	
 	// Any requests that could not get processed properly, send to an error topic to be picked up by a dedicated service. 
 	// (e.g. Construct an appropriate error message and send back to the waiting microgateway reply-to and onwards to the API caller.)
-	static final String EVENT_TOPIC_OUT_ERROR = "myBank/cards/fraudCheck/errors";
+	static final String EVENT_TOPIC_OUT_ERROR = "myBank/cards/fraudCheckApi/error";
 	
 	// Header that signals whether a card block is desired if fraud detected
 	// It will be an example of some state carried forward through the event processing pipeline of multiple services

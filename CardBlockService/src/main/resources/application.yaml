@@ -30,7 +30,7 @@ spring:
         bindings:
           blockCard-in-0:
             consumer:
-              queueAdditionalSubscriptions: myBank/cards/fraudCheck/cards/block/req/v1/>
+              queueAdditionalSubscriptions: myBank/cards/cardService/block/req/v1/>
               provisionDurableQueue: true
               queueNamePrefix: ""
               useFamiliarityInQueueName: false
