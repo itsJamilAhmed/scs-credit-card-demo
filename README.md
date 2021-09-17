@@ -149,7 +149,7 @@ cd CardBlockService/
 
 ### Step 4: Invoke fraudCheck API with valid payload
 
-Just as in step, invoke the API again. This time with this sample JSON payload:
+Just as in step 2 above, invoke the API again using your tool of choice. This time with this sample JSON payload:
 
 ```
 {
@@ -161,9 +161,37 @@ Just as in step, invoke the API again. This time with this sample JSON payload:
 
 ### Step 5: Review Orchestrator log output
 
-The Orchestrator Service is a natural observation of the whole event flow and processing pipeline. Multiple input channels are used to invoke processing functions to further the orchestrated pipeline.
+The Orchestrator Service is a natural observation point of the whole event flow and processing pipeline. Multiple input channels are used to invoke processing functions to further the orchestrated pipeline.
 
 Review those logs as you submit further requests to observe the interactions.
 Randomisation is introduced on the fraud check status to create different responses, as well as for simulating processing delays at each service by sleeping for a number of milliseconds.
 
 **Important Note:** If the logs in your deployed service instance are not updating when you issue the API calls, it means another instance deployed by someone else has picked it up and processed it. 
+
+A sample log output is below for comparison:
+![Sample of Orchestrator Logs](https://github.com/itsJamilAhmed/scs-request-reply-solace-example/blob/main/images/Sample-Orchestrator-Logs.JPG)
+
+### And that's it!
+
+## Contributing
+
+Welcome any feedback and suggestions as I plan to continue refining this sample.
+
+## Authors
+
+See the list of [contributors](https://github.com/itsJamilAhmed/scs-request-reply-solace-example/graphs/contributors) who participated in this project.
+
+## License
+
+This project is licensed under the Apache License, Version 2.0. - See the [LICENSE](LICENSE) file for details.
+
+## Resources
+
+For more information try these resources:
+- Developer [tutorials/codelabs](https://codelabs.solace.dev/codelabs/solace-workshop-scs/index.html) using the Solace Sping Binder
+- The Solace Sping Cloud Streams Project on [GitHub](https://github.com/SolaceProducts/solace-spring-cloud)
+- Get a better understanding of [Solace Event Brokers](https://solace.com/products/event-broker/)
+- The Solace [Developer Portal](https://solace.dev)
+- Check out the [Solace blog](https://solace.com/blog/) for other interesting discussions around Solace technology
+- Ask the [Solace community](https://solace.community/) for help
+
