@@ -159,6 +159,11 @@ Just as in step 2 above, invoke the API again using your tool of choice. This ti
 }
 ```
 
+Using curl this might look something like: 
+```
+curl -u scs-demo-public-user:scs-demo-public-user -H "Content-Type: application/json" -X POST https://public-demo-broker.messaging.solace.cloud:9443/fraudCheck -d '{ "partner":"onyx", "cardNumber": "1234-5678-1234-5688", "blockCardIfFraudulent":true }'
+```
+
 ### Step 5: Review Orchestrator log output
 
 The Orchestrator Service is a natural observation point of the whole event flow and processing pipeline. Multiple input channels are used to invoke processing functions to further the orchestrated pipeline.
