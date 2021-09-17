@@ -102,7 +102,7 @@ To trigger the deployed microservices, issue a HTTP POST operation using a tool 
 
 URI | Username | Password | Content-Type |
 ---- | ---- | ---- | ---- | 
-`https://public-demo-broker.messaging.solace.cloud:9443/fraudCheck` | `scs-demo-public-user` | `scs-demo-public-user` | application/json |
+`https://public-demo-broker.messaging.solace.cloud:9443/fraudCheck` | `scs-demo-public-user` | `scs-demo-public-user` | `application/json` |
 
 Example if using curl:
 `curl -u scs-demo-public-user:scs-demo-public-user -H "Content-Type: application/json" -X POST https://public-demo-broker.messaging.solace.cloud:9443/fraudCheck`
@@ -171,7 +171,7 @@ The Orchestrator Service is a natural observation point of the whole event flow 
 Review those logs as you submit further requests to observe the interactions.
 Randomisation is introduced on the fraud check status to create different responses, as well as for simulating processing delays at each service by sleeping for a number of milliseconds.
 
-**Important Note:** If the logs in your deployed service instance are not updating when you issue the API calls, it means another instance deployed by someone else has picked it up and processed it. 
+**:warning: Important Note:** If the logs in your deployed service instance are not updating when you issue the API calls, it means another instance deployed by someone else has picked it up and processed it. 
 
 A sample log output is below for comparison:
 ![Sample of Orchestrator Logs](https://github.com/itsJamilAhmed/scs-credit-card-demo/blob/main/images/Sample-Orchestrator-Logs.JPG)
