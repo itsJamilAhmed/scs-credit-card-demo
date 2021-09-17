@@ -25,7 +25,7 @@ Note: The [Microgateway](https://docs.solace.com/Overviews/Microgateway-Concepts
 
 Our hypothetical use-case involves a bank that provides co-branded credit cards and services to *partner* organisations that are not banks. e.g. a large grocery retailer issuing credit cards for their customers.
 
-The partner organisation is able to call a RESTful API (hosted by the bank) to check if a credit card is suspected of fraudulent usage. If yes, the partner also has the option to request the card be blocked from further use, or still remain. (The partner may decide to block the card in a different API call following some additional checks for example.)
+The partner organisation is able to call a RESTful API (hosted by the bank) to check if a credit card is suspected of fraudulent usage. If yes, the partner also has the option to request the card be blocked from further use, or still remain active. (The partner may decide to block the card in a different API call following some additional checks for example.)
 
 While externally the HTTP API appears simple to the partner, inside the bank numerous microservices are involved to support its interaction like so:
 ![Image of High Level Architecture](https://github.com/itsJamilAhmed/scs-request-reply-solace-example/blob/main/images/Fraud-Check-High-Level-Architecture.jpg)
