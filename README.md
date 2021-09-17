@@ -1,23 +1,23 @@
-# Spring Cloud Streams Demo: Credit Card Fraud Checking
+# Spring Cloud Stream Demo: Credit Card Fraud Checking
 
 ## Repository Purpose
 
 > "While the concept of *publish-subscribe messaging* is not new, Spring Cloud Stream takes the extra step of making it an **opinionated choice** for its application model."
 
-The above is an extract from the Spring Cloud Streams documentation [here](https://docs.spring.io/spring-cloud-stream/docs/current/reference/html/spring-cloud-stream.html#spring-cloud-stream-overview-persistent-publish-subscribe-support). While I am all in favour of the pub-sub pattern for application integration, it is difficult for many use-cases to completely shed themselves of the [request-reply](https://en.wikipedia.org/wiki/Request%E2%80%93response) interactions that exist in the overall application architecture.
+The above is an extract from the Spring Cloud Stream documentation [here](https://docs.spring.io/spring-cloud-stream/docs/current/reference/html/spring-cloud-stream.html#spring-cloud-stream-overview-persistent-publish-subscribe-support). While I am all in favour of the pub-sub pattern for application integration, it is difficult for many use-cases to completely shed themselves of the [request-reply](https://en.wikipedia.org/wiki/Request%E2%80%93response) interactions that exist in the overall application architecture.
 
 Messaging middleware solutions such as the [Solace PubSub+ Event Broker](https://solace.com/products/event-broker/) recognise this requirement and have the API natively support both publish-subscribe and point-to-point (i.e. request-reply) styles of interaction with equal importance.
 
-This repository will provide a working sample in the context of a hypothetical use-case in financial services. The use-case implements event-driven microservices architecture in the backend, which are supporting an externally facing API offered over RESTful HTTP. The event-driven processing pipeline is essentially triggered by a synchronous HTTP operation, which becomes the request message that demands a corresponding reponse message from the end of the event-driven processing pipeline.
+This repository will provide a working sample in the context of a hypothetical use-case in financial services. The use-case implements event-driven microservices architecture in the backend, which are supporting an externally facing API offered over RESTful HTTP. The event-driven processing pipeline is essentially triggered by a synchronous HTTP operation, which becomes the request message that demands a corresponding response message from the end of the event-driven processing pipeline.
 
-### Implementing request-reply with Spring Cloud Streams
+### Implementing request-reply with Spring Cloud Stream
 Two important constructs enable request-reply communication to take place over common messaging middleware:
 1. The use of a dynamically created 'inbox' or 'reply-to' topics to allow messages carrying the response to be routed precisely to the original requesting service
    * Metadata carried within the message itself allows a responding service to know how to reply specifically to this dynamic topic
 1. The insertion of correlation IDs on the outbound request messages that are present again on the replies
    * These allow multiple requests to be active in parallel, with responses being matched up as they arrive asynchronously
 
-While Spring Cloud Streams has no direct support to create a specialised 'request' message that automatically handles the mechanics of reply-to topics and correlation IDs, we can of course use the building blocks of message *headers* and the setting of *target destination* to achieve a successful request-reply interaction between two microservices.
+While Spring Cloud Stream has no direct support to create a specialised 'request' message that automatically handles the mechanics of reply-to topics and correlation IDs, we can of course use the building blocks of message *headers* and the setting of *target destination* to achieve a successful request-reply interaction between two microservices.
 
 Note: The [Microgateway](https://docs.solace.com/Overviews/Microgateway-Concepts/Microgateway-Use-Cases.htm) feature in the Solace PubSub+ broker will handle the protocol mediation, essentially converting each HTTP operation to a *request* message, which contains the reply-to topic the final response message needs to target.
 
