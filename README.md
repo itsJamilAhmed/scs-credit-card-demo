@@ -28,7 +28,7 @@ Our hypothetical use-case involves a bank that provides co-branded credit cards 
 The partner organisation is able to call a RESTful API (hosted by the bank) to check if a credit card is suspected of fraudulent usage. If yes, the partner also has the option to request the card be blocked from further use, or still remain active. (The partner may decide to block the card in a different API call following some additional checks for example.)
 
 While externally the HTTP API appears simple to the partner, inside the bank numerous microservices are involved to support its interaction like so:
-![Image of High Level Architecture](https://github.com/itsJamilAhmed/scs-request-reply-solace-example/blob/main/images/Fraud-Check-High-Level-Architecture.jpg)
+![Image of High Level Architecture](https://github.com/itsJamilAhmed/scs-credit-card-demo/blob/main/images/Fraud-Check-High-Level-Architecture.jpg)
 
 A high-level flow is as follows:
 1. For a given credit card, a list of recent transactions needs to be fetched from the Transactions Service
@@ -77,8 +77,8 @@ We will start with a minimal deployment of these two services first. It will dem
 Clone this GitHub repository containing all the services to a suitable location:
 
 ```
-git clone https://github.com/itsJamilAhmed/scs-request-reply-solace-example/
-cd scs-request-reply-solace-example
+git clone https://github.com/itsJamilAhmed/scs-credit-card-demo/
+cd scs-credit-card-demo
 ```
 
 In separate terminals, go into the directory for the two services and use the bundled Gradle wrapper to start the spring boot application:
@@ -174,7 +174,7 @@ Randomisation is introduced on the fraud check status to create different respon
 **Important Note:** If the logs in your deployed service instance are not updating when you issue the API calls, it means another instance deployed by someone else has picked it up and processed it. 
 
 A sample log output is below for comparison:
-![Sample of Orchestrator Logs](https://github.com/itsJamilAhmed/scs-request-reply-solace-example/blob/main/images/Sample-Orchestrator-Logs.JPG)
+![Sample of Orchestrator Logs](https://github.com/itsJamilAhmed/scs-credit-card-demo/blob/main/images/Sample-Orchestrator-Logs.JPG)
 
 ### And that's it!
 
@@ -184,7 +184,7 @@ Welcome any feedback and suggestions as I plan to continue refining this sample.
 
 ## Authors
 
-See the list of [contributors](https://github.com/itsJamilAhmed/scs-request-reply-solace-example/graphs/contributors) who participated in this project.
+See the list of [contributors](https://github.com/itsJamilAhmed/scs-credit-card-demo/graphs/contributors) who participated in this project 
 
 ## License
 
