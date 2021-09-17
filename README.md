@@ -166,3 +166,4 @@ The Orchestrator Service is a natural observation of the whole event flow and pr
 Review those logs as you submit further requests to observe the interactions.
 Randomisation is introduced on the fraud check status to create different responses, as well as for simulating processing delays at each service by sleeping for a number of milliseconds.
 
+**Important Note:** If the logs in your deployed service instance are not updating when you issue the API calls, it means another instance deployed by someone else has picked it up and processed it. 
