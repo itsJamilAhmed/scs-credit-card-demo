@@ -34,8 +34,8 @@ public class OrchestratorServiceApplication {
 	static final String SOURCE_PLATFORM_NAME_KEY = "app_sourcePlatform";
 	
 	// Root topic of various services this orchestrator will leverage
-	static final String EVENT_TOPIC_OUT_ROOT_TXN =        "myBank/cards/txnService/history/get/v1";
-	static final String EVENT_TOPIC_OUT_ROOT_FRAUDCHECK = "myBank/cards/fraudService/status/get/v1";
+	static final String EVENT_TOPIC_OUT_ROOT_TXN =        "myBank/cards/txnService/history/req/v1";
+	static final String EVENT_TOPIC_OUT_ROOT_FRAUDCHECK = "myBank/cards/fraudService/status/req/v1";
 	static final String EVENT_TOPIC_OUT_ROOT_CARDBLOCK =  "myBank/cards/cardService/block/req/v1";
 	
 	// Root of reply-to topics to get various responses back to this service

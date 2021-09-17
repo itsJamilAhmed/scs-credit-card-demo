@@ -30,7 +30,7 @@ spring:
         bindings:
           getTransactions-in-0:
             consumer:
-              queueAdditionalSubscriptions: myBank/cards/txnService/history/get/v1/>
+              queueAdditionalSubscriptions: myBank/cards/txnService/history/req/v1/>
               provisionDurableQueue: true
               queueNamePrefix: ""
               useFamiliarityInQueueName: false

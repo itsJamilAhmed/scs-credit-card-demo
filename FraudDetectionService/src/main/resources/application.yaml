@@ -30,7 +30,7 @@ spring:
         bindings:
           getFraudStatus-in-0:
             consumer:
-              queueAdditionalSubscriptions: myBank/cards/fraudService/status/get/v1/>
+              queueAdditionalSubscriptions: myBank/cards/fraudService/status/req/v1/>
               provisionDurableQueue: true
               queueNamePrefix: ""
               useFamiliarityInQueueName: false
