@@ -91,7 +91,7 @@ public class ApiErrorHandlingServiceApplication {
 			
 			jsonMessage = new JSONObject();
 			jsonMessage.put("status", "error");
-			jsonMessage.put("errorMsg", "The request timed out due to an internal error. Please retry the operation.");	
+			jsonMessage.put("errorMsg", "This service is currently unavailable. Please try again later.");	
 
 			
 			// May as well calculate the elapsed time between receiving the original request and this error event
