@@ -24,6 +24,14 @@ public class MediatorServiceApplication {
 	static final String SOL_CORRELATION_ID_KEY = "solace_correlationId";
 	static final String SOL_DESTINATION_KEY = "solace_destination";
 	
+	// Which message header determines DMQ eligibility and Time-To-Live?
+	static final String SOL_DMQ_ENABLE_KEY = "solace_dmqEligible";
+	static final String SOL_TTL_KEY = "solace_timeToLive";
+	
+	// How long to wait (in milliseconds) for the orchestrator to pick up the request before
+	// giving up, and redirecting the message to the Error Handler instead to send a timeout message?
+	static final long REQUEST_TIMEOUT_TRIGGER_MS = 3000L;
+	
 	// Which message header key stores the message timestamp?
 	static final String SOL_MSG_TIMESTAMP_KEY = "timestamp";
 	
@@ -76,6 +84,10 @@ public class MediatorServiceApplication {
 			
 			String partnerName;	// To use in the construction of the final output topic
 			String outputTopic;		// Dynamically determined on a per-message basis
+			
+			// Just to facilitate a meaningful log output:
+			String outputTypeForLogging = "Sending mediated request message: ";
+
 			try {
 				try {
 					jsonMessage = (JSONObject) new JSONParser().parse(payload);
@@ -103,6 +115,7 @@ public class MediatorServiceApplication {
 				jsonMessage.put("status", "error");
 				jsonMessage.put("errorMsg", "Error processing message: " + e.getMessage());
 				outputTopic = EVENT_TOPIC_OUT_ERROR;
+				outputTypeForLogging = "Sending processing-error message: ";
 			}
 			
 			Message<String> output = MessageBuilder.withPayload(jsonMessage.toString())
@@ -110,9 +123,13 @@ public class MediatorServiceApplication {
 					.setHeader(MEDIATOR_REPLYTO_DESTINATION_KEY, input.getHeaders().getOrDefault(SOL_REPLYTO_DESTINATION_KEY, ""))
 					.setHeader(MEDIATOR_MSG_TIMESTAMP_KEY,       input.getHeaders().getOrDefault(SOL_MSG_TIMESTAMP_KEY, ""))
 					.setHeader(SOURCE_PLATFORM_NAME_KEY,         SOURCE_PLATFORM_NAME)
+					.setHeader(SOL_DMQ_ENABLE_KEY,				 true)
+					.setHeader(SOL_TTL_KEY,				 		 REQUEST_TIMEOUT_TRIGGER_MS)
 					.setHeader(BinderHeaders.TARGET_DESTINATION, outputTopic)
 					.build();
 			
+			log.info(outputTypeForLogging + output.getPayload() + " on topic: " + outputTopic);
+
 			return output;
 		};
 	}
