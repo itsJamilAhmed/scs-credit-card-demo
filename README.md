@@ -171,10 +171,11 @@ The Orchestrator Service is a natural observation point of the whole event flow 
 Review those logs as you submit further requests to observe the interactions.
 Randomisation is introduced on the fraud check status to create different responses, as well as for simulating processing delays at each service by sleeping for a number of milliseconds.
 
-**:warning: Important Note:** If the logs in your deployed service instance are not updating when you issue the API calls, it means another instance deployed by someone else has picked it up and processed it. 
-
 A sample log output is below for comparison:
 ![Sample of Orchestrator Logs](https://github.com/itsJamilAhmed/scs-credit-card-demo/blob/main/images/Sample-Orchestrator-Logs.JPG)
+
+#### Not seeing the logs update? :confused: 
+If the logs in your deployed service instance are not updating when you issue the API calls, yet still getting a response, it means another instance deployed by someone else has picked it up and processed it. 
 
 ### And that's it!
 
@@ -194,6 +195,7 @@ This project is licensed under the Apache License, Version 2.0. - See the [LICEN
 
 For more information try these resources:
 - Developer [tutorials/codelabs](https://codelabs.solace.dev/codelabs/solace-workshop-scs/index.html) using the Solace Spring Binder
+- List of [configuration parameters](https://github.com/SolaceProducts/solace-spring-cloud/tree/master/solace-spring-cloud-starters/solace-spring-cloud-stream-starter#configuration-options) for the Solace PubSub+ Spring Binder 
 - The Solace Spring Cloud Streams Project on [GitHub](https://github.com/SolaceProducts/solace-spring-cloud)
 - Get a better understanding of [Solace Event Brokers](https://solace.com/products/event-broker/)
 - The Solace [Developer Portal](https://solace.dev)
