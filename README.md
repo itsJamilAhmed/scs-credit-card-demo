@@ -177,6 +177,32 @@ A sample log output is below for comparison:
 #### Not seeing the logs update? :confused: 
 If the logs in your deployed service instance are not updating when you issue the API calls, yet still getting a response, it means another instance deployed by someone else has picked it up and processed it. 
 
+### Step 6: Terminate the Orchestrator Service
+
+This last step is about demonstrating another exception path in the processing pipeline. 
+Assuming your instance of the Orchestrator was the only one running, or you are running these tests against your own dedicated Event Broker, the lack of the Orchestrator Service effectively means the API cannot be properly serviced. After the request has passed the mediator service, what options are available to monitor the pipeline and take any recovery steps?
+
+While the powers of persistent messaging mean that request message can sit forever waiting for the Orchestrator Service to return, it is not the desired behaviour with a synchronous call essentially waiting for a response. That call actually needs to timeout gracefully in this exceptional scenario so the caller can try again later. 
+Fortunately, the Solace PubSub+ features of message [time-to-live and dead-message-queues (DMQs)](https://docs.solace.com/Solace-JMS-API/Setting-Message-Properties.htm?Highlight=Time%20to%20live) can help here. 
+
+The Mediator Service can set some message properties to make that request time out after a given period (say 3 seconds), and let that message move to the inbound channel (i.e. queue) of another waiting service instead. That is the Error Handling Service in this example, with that assuming responsibility to send an apprioriate response to the caller.
+
+With the Orchestrator Service terminated, issue a new API call like in Step 4 earlier.
+
+Using curl this might look something like: 
+```
+curl -u scs-demo-public-user:scs-demo-public-user -H "Content-Type: application/json" -X POST https://public-demo-broker.messaging.solace.cloud:9443/fraudCheck -d '{ "partner":"onyx", "cardNumber": "1234-5678-1234-5688", "blockCardIfFraudulent":true }'
+```
+
+After a 3 second wait, you should see a response like so:
+```
+{
+    "status": "error",
+    "errorMsg": "This service is currently unavailable. Please try again later.",
+    "elapsedTimeMs": 3090
+}
+```
+
 ### And that's it!
 
 ## Contributing
