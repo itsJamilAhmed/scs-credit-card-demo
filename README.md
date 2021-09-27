@@ -1,5 +1,19 @@
 # Spring Cloud Stream Demo: Credit Card Fraud Checking
 
+## Table of Contents :bookmark_tabs:  
+* [Repository Purpose](#repository-purpose)
+  * [Implementing request reply with Spring Cloud Stream](#implementing-request-reply-with-spring-cloud-stream)
+  * [Use-Case Information: Credit Card Fraud Check](#use-case-information-credit-card-fraud-check)
+* [Services in this repository](#services-in-this-repository)
+  * [Implementation Principles](#implementation-principles)
+* [Running the demo services](#running-the-demo-services)
+  * [Pre-requisites](#pre-requisites-white_check_mark)
+  * [Step by step instructions](#step-one-start-the-mediator-and-error-handling-service)
+* [Contributing](#contributing)
+* [Authors](#authors)
+* [License](#license)
+* [Resources](#resources)
+
 ## Repository Purpose
 
 > "While the concept of *publish-subscribe messaging* is not new, Spring Cloud Stream takes the extra step of making it an **opinionated choice** for its application model."
@@ -62,15 +76,23 @@ Card Block | This is a simple service that takes a supplied card number and sets
     * The orchestrator service executes in parallel the request to block the card, and the generation of the final response message to the API caller.
     * In other words, it assumes that the caller does not need to wait until the card has actually been blocked before it can be informed of the fraud detection status.
 
-## Running the services
+## Running the demo services
 
-### Public Access Event Broker
+### Pre-requisites :white_check_mark:
+
+#### Option A: Use the public access Event Broker
 
 The configuration files (`application.yaml`) for each of the services uses a PubSub+ Event Broker available for public access and hosted in [Solace Cloud](https://solace.com/products/event-broker/cloud/). This means you are able to checkout the project and run it without needing to [setup an Event Broker of your own first](https://www.solace.dev/). Your running instances of the service will automatically join the competitive consumption against any other instance already running by someone else.
 
-If you want to instead leverage your own broker instance, please update the `spring > cloud > stream > binders > solace-broker` section of each `application.yaml` configuration file first. 
+#### Option B: Use your own Event Broker 
 
-### Step 1. Start the Mediator and Error Handling Service
+If you want to instead leverage your own broker instance: 
+1. Update the `spring > cloud > stream > binders > solace-broker` section of each `application.yaml` configuration file first with connection details of your message VPN.
+2. Configure the microgateway feature to be in `gateway` mode for the message VPN. (More details [here](https://docs.solace.com/Configuring-and-Managing/Microgateway-Tasks/Managing-Microgateway.htm#Configure_VPN_Mode).)
+3. If your client-username does not have permission to provision durable endpoints through the API, create the [necessary queues](https://github.com/itsJamilAhmed/scs-credit-card-demo/blob/main/images/fraudCheck-Queues-List.jpg) with the topic subscriptions as present in the `application.yaml` file. 
+4. Use the REST hostname and port for your message VPN in the commands below that represent the external API caller. (i.e. the `curl` or [postman](https://www.postman.com/) steps.)
+
+### Step :one:: Start the Mediator and Error Handling Service
 
 We will start with a minimal deployment of these two services first. It will demonstrate the ability of one service to receive the HTTP operation as a message, and another separate service to handle an error with the request and produce a response back to the API caller.
 
@@ -95,7 +117,7 @@ cd ApiErrorHandlingService/
 ./gradlew bootRun
 ```
 
-### Step 2: Trigger the fraudCheck API
+### Step :two:: Trigger the fraudCheck API
 
 To trigger the deployed microservices, issue a HTTP POST operation using a tool like `curl` or [postman](https://www.postman.com/) using the details below. 
 (This directly hits the Microgateway feature of the above mentioned public access Event Broker, but could easily have been fronted by an API Gateway product first to pass-thru the HTTP call.)
@@ -119,7 +141,7 @@ If all successful, the empty payload will trigger the Mediator Service to genera
 
 No other service (such as the Orchestrator) was needed at this stage. We will go onto to deploy them next.
 
-### Step 3: Start the Orchestrator, Transactions History, Fraud Detection and Card Block Services
+### Step :three:: Start the Orchestrator, Transactions History, Fraud Detection and Card Block Services
 
 Once again across separate terminals, start the services like so:
 
@@ -147,7 +169,7 @@ cd CardBlockService/
 ./gradlew bootRun
 ```
 
-### Step 4: Invoke fraudCheck API with valid payload
+### Step :four:: Invoke fraudCheck API with valid payload
 
 Just as in step 2 above, invoke the API again using your tool of choice. This time with this sample JSON payload:
 
@@ -164,7 +186,7 @@ Using curl this might look something like:
 curl -u scs-demo-public-user:scs-demo-public-user -H "Content-Type: application/json" -X POST https://public-demo-broker.messaging.solace.cloud:9443/fraudCheck -d '{ "partner":"onyx", "cardNumber": "1234-5678-1234-5688", "blockCardIfFraudulent":true }'
 ```
 
-### Step 5: Review Orchestrator log output
+### Step :five:: Review Orchestrator log output
 
 The Orchestrator Service is a natural observation point of the whole event flow and processing pipeline. Multiple input channels are used to invoke processing functions to further the orchestrated pipeline.
 
@@ -177,7 +199,7 @@ A sample log output is below for comparison:
 #### Not seeing the logs update? :confused: 
 If the logs in your deployed service instance are not updating when you issue the API calls, yet still getting a response, it means another instance deployed by someone else has picked it up and processed it. 
 
-### Step 6: Terminate the Orchestrator Service
+### Step :six:: Terminate the Orchestrator Service
 
 This last step is about demonstrating another exception path in the processing pipeline. 
 Assuming your instance of the Orchestrator was the only one running, or you are running these tests against your own dedicated Event Broker, the lack of the Orchestrator Service effectively means the API cannot be properly serviced. After the request has passed the mediator service, what options are available to monitor the pipeline and take any recovery steps?
