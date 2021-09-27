@@ -241,15 +241,17 @@ In the table below, elements in `{}` are dynamic elements as determined from eit
 
 Service | Subscribe Topic | Publish Topic | Error Topic |
 ---- | -------- | ------ | ---- |
-fraudCheck Mediator | `POST/fraudCheck` | `myBank/cards/fraudCheckApi/status/v1/{platform}/{partner}` | `myBank/cards/fraudCheckApi/error` |
-fraudCheck Error Handling | `myBank/cards/fraudCheckApi/error` | Topic string as provided in message header `app_fraudCheckMediator_replyTo` | N/A |
-fraudCheck **Orchestrator** (getRecentTransactions) | `myBank/cards/fraudCheckApi/status/v1/>` | `myBank/cards/txnService/history/req/v1/{platform}/{partner}/{UUID}` | `myBank/cards/fraudCheckApi/error` |
-fraudCheck **Orchestrator** (getFraudStatus) | `myBank/cards/fraudCheckApi/reply/txnService/history/v1/>` | `myBank/cards/fraudService/status/req/v1/{platform}/{partner}/{UUID}` | `myBank/cards/fraudCheckApi/error` |
-fraudCheck **Orchestrator** (requestCardBlock) | `myBank/cards/fraudCheckApi/reply/fraudService/status/v1/>` | `myBank/cards/cardService/block/req/v1/{platform}/{partner}/{UUID}` | `myBank/cards/fraudCheckApi/error` |
-fraudCheck **Orchestrator** (returnFinalResponse) | `myBank/cards/fraudCheckApi/reply/fraudService/status/v1/>` | Topic string as provided in message header `app_fraudCheckMediator_replyTo` | `myBank/cards/fraudCheckApi/error` |
-Transactions History | `myBank/cards/txnService/history/req/v1/>` | Topic string as provided in message header `reply_to_destination` | N/A |
-Fraud Detection | `myBank/cards/fraudService/status/req/v1/>` | Topic string as provided in message header `reply_to_destination` | N/A |
-Card Block | `myBank/cards/cardService/block/req/v1/>` | Topic string as provided in message header `reply_to_destination` | N/A |
+fraudCheck Mediator | `POST/fraudCheck` | `myBank/cards/fraudCheckApi/status/v1/{platform}/{partner}` :ledger: | `myBank/cards/fraudCheckApi/error` :orange_book: |
+fraudCheck **Orchestrator** (getRecentTransactions) | `myBank/cards/fraudCheckApi/status/v1/>` :ledger: | `myBank/cards/txnService/history/req/v1/{platform}/{partner}/{UUID}` :closed_book: | `myBank/cards/fraudCheckApi/error` :orange_book: |
+fraudCheck **Orchestrator** (getFraudStatus) | `myBank/cards/fraudCheckApi/reply/txnService/history/v1/>` :spades: | `myBank/cards/fraudService/status/req/v1/{platform}/{partner}/{UUID}` :green_book: | `myBank/cards/fraudCheckApi/error` :orange_book: |
+fraudCheck **Orchestrator** (requestCardBlock) | `myBank/cards/fraudCheckApi/reply/fraudService/status/v1/>` :hearts: | `myBank/cards/cardService/block/req/v1/{platform}/{partner}/{UUID}` :blue_book: | `myBank/cards/fraudCheckApi/error` :orange_book: |
+fraudCheck **Orchestrator** (returnFinalResponse) | `myBank/cards/fraudCheckApi/reply/fraudService/status/v1/>` :diamonds: | Topic string as provided in message header `app_fraudCheckMediator_replyTo` | `myBank/cards/fraudCheckApi/error` :orange_book: |
+fraudCheck Error Handling | `myBank/cards/fraudCheckApi/error` :orange_book: | Topic string as provided in message header `app_fraudCheckMediator_replyTo` | N/A |
+Transactions History | `myBank/cards/txnService/history/req/v1/>` :closed_book: | Topic string as provided in message header `reply_to_destination` :spades: | N/A |
+Fraud Detection | `myBank/cards/fraudService/status/req/v1/>` :green_book: | Topic string as provided in message header `reply_to_destination`  :hearts: | N/A |
+Card Block | `myBank/cards/cardService/block/req/v1/>` :blue_book: | Topic string as provided in message header `reply_to_destination` :diamonds: | N/A |
+
+( :books: The colour coding is provided to visually link the publish topic of one service with the subscribe topic or wildcard of another.)
 
 ## Contributing
 
