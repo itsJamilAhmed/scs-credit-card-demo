@@ -9,6 +9,7 @@
 * [Running the demo services](#running-the-demo-services)
   * [Pre-requisites](#pre-requisites-white_check_mark)
   * [Step by step instructions](#step-one-start-the-mediator-and-error-handling-service)
+* [Appendix: Topic Taxonomy](#appendix-topic-taxonomy) 
 * [Contributing](#contributing)
 * [Authors](#authors)
 * [License](#license)
@@ -226,6 +227,28 @@ After a 3 second wait, you should see a response like so:
 ```
 
 ### And that's it!
+
+## Appendix: Topic Taxonomy
+
+These sample services use a topic taxonomy two demonstrate two important concepts:
+1. Wildcarded subscription by consumers to attract events of interest
+2. Dynamic elements being incorporated into a final target destinations as set by publishers
+
+For advice on defining a comprehensive topic taxonomy, consult the [Solace documentation here](https://docs.solace.com/Best-Practices/Topic-Architecture-Best-Practices.htm). The topics used by these services favour brevity and may not incorporate all the necessary best practices. 
+
+In the table below, elements in `{}` are dynamic elements as determined from either the original API request contents (e.g. `{partner}`) or static strings defined in the service to identify itself as a source system (e.g. `{platform}`).
+
+Service | Subscribe Topic | Publish Topic | Error Topic |
+---- | -------- | ------ | ---- |
+fraudCheck Mediator | `POST/fraudCheck` | `myBank/cards/fraudCheckApi/status/v1/{platform}/{partner}` | `myBank/cards/fraudCheckApi/error` |
+fraudCheck Error Handling | `myBank/cards/fraudCheckApi/error` | Topic string as provided in message header `app_fraudCheckMediator_replyTo` | N/A |
+fraudCheck **Orchestrator** (getRecentTransactions) | `myBank/cards/fraudCheckApi/status/v1/>` | `myBank/cards/txnService/history/req/v1/{platform}/{partner}/{UUID}` | `myBank/cards/fraudCheckApi/error` |
+fraudCheck **Orchestrator** (getFraudStatus) | `myBank/cards/fraudCheckApi/reply/txnService/history/v1/>` | `myBank/cards/fraudService/status/req/v1/{platform}/{partner}/{UUID}` | `myBank/cards/fraudCheckApi/error` |
+fraudCheck **Orchestrator** (requestCardBlock) | `myBank/cards/fraudCheckApi/reply/fraudService/status/v1/>` | `myBank/cards/cardService/block/req/v1/{platform}/{partner}/{UUID}` | `myBank/cards/fraudCheckApi/error` |
+fraudCheck **Orchestrator** (returnFinalResponse) | `myBank/cards/fraudCheckApi/reply/fraudService/status/v1/>` | Topic string as provided in message header `app_fraudCheckMediator_replyTo` | `myBank/cards/fraudCheckApi/error` |
+Transactions History | `myBank/cards/txnService/history/req/v1/>` | Topic string as provided in message header `reply_to_destination` | N/A |
+Fraud Detection | `myBank/cards/fraudService/status/req/v1/>` | Topic string as provided in message header `reply_to_destination` | N/A |
+Card Block | `myBank/cards/cardService/block/req/v1/>` | Topic string as provided in message header `reply_to_destination` | N/A |
 
 ## Contributing
 
