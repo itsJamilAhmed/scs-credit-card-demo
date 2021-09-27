@@ -230,7 +230,7 @@ After a 3 second wait, you should see a response like so:
 
 ## Appendix: Topic Taxonomy
 
-These sample services use a topic taxonomy two demonstrate two important concepts:
+These sample services use a topic taxonomy to demonstrate two important concepts:
 1. Wildcarded subscription by consumers to attract events of interest
 2. Dynamic elements being incorporated into a final target destinations as set by publishers
 
