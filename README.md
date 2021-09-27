@@ -230,9 +230,10 @@ After a 3 second wait, you should see a response like so:
 
 ## Appendix: Topic Taxonomy
 
-These sample services use a topic taxonomy to demonstrate two important concepts:
+These sample services use a topic taxonomy to demonstrate three important concepts:
 1. Wildcarded subscription by consumers to attract events of interest
-2. Dynamic elements being incorporated into a final target destinations as set by publishers
+2. Dynamic elements being incorporated into a final target destination as set by publishers
+3. Topic destinations being generated within a specific 'reply' range in the taxonomy to direct responses back to a given service. (i.e. the Orchestrator)
 
 For advice on defining a comprehensive topic taxonomy, consult the [Solace documentation here](https://docs.solace.com/Best-Practices/Topic-Architecture-Best-Practices.htm). The topics used by these services favour brevity and may not incorporate all the necessary best practices. 
 
