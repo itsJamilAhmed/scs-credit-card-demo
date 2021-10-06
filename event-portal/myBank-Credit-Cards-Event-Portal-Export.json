@@ -13,11 +13,11 @@
       "events": [
         {
           "createdTime": 1632470636053,
-          "updatedTime": 1633523823910,
+          "updatedTime": 1633538638723,
           "createdBy": "3e2ocmx98j",
           "changedBy": "67tr8tkuc3",
           "id": "bny6v5wircl",
-          "name": "TransactionHistory (request)",
+          "name": "TransactionsHistory (request)",
           "version": "0.0.1",
           "shared": false,
           "description": "A request message for the Transactions History Service",
@@ -26,7 +26,7 @@
           "keySchemaId": null,
           "keySchemaVersionId": null,
           "applicationDomainId": "6mpvlr3z9fd",
-          "revisionNumber": 2,
+          "revisionNumber": 3,
           "keyPrimitivePayloadType": null,
           "valuePrimitivePayloadType": null,
           "topicAddress": {
