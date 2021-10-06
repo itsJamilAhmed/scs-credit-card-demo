@@ -1,0 +1,1355 @@
+{
+  "applicationDomains": [
+    {
+      "createdTime": 1632466928515,
+      "updatedTime": 1633525543372,
+      "createdBy": "3e2ocmx98j",
+      "changedBy": "67tr8tkuc3",
+      "id": "6mpvlr3z9fd",
+      "name": "myBank - Credit Cards",
+      "topicDomain": "myBank/cards",
+      "description": "A set of services that support the Credit Cards business at a hypothetical 'my Bank' financial services institution. ",
+      "enforceUniqueTopicNames": false,
+      "events": [
+        {
+          "createdTime": 1632470636053,
+          "updatedTime": 1633523823910,
+          "createdBy": "3e2ocmx98j",
+          "changedBy": "67tr8tkuc3",
+          "id": "bny6v5wircl",
+          "name": "TransactionHistory (request)",
+          "version": "0.0.1",
+          "shared": false,
+          "description": "A request message for the Transactions History Service",
+          "schemaId": null,
+          "schemaVersionId": null,
+          "keySchemaId": null,
+          "keySchemaVersionId": null,
+          "applicationDomainId": "6mpvlr3z9fd",
+          "revisionNumber": 2,
+          "keyPrimitivePayloadType": null,
+          "valuePrimitivePayloadType": null,
+          "topicAddress": {
+            "id": "ga3s0ju8pc5",
+            "virtualBrokerId": "cf3rx6j30gm",
+            "topicAddressLevels": [
+              {
+                "id": "4n30scrj4mc",
+                "consumable": false,
+                "name": "myBank",
+                "displayName": "myBank",
+                "description": "",
+                "children": [],
+                "topicNodeType": "literal",
+                "type": "topicNode"
+              },
+              {
+                "id": "wi44r8bj72k",
+                "consumable": false,
+                "name": "cards",
+                "displayName": "cards",
+                "description": "",
+                "children": [],
+                "topicNodeType": "literal",
+                "type": "topicNode"
+              },
+              {
+                "id": "5t40hg4iq2d",
+                "consumable": false,
+                "name": "txnService",
+                "displayName": "txnService",
+                "description": "",
+                "children": [],
+                "topicNodeType": "literal",
+                "type": "topicNode"
+              },
+              {
+                "id": "piswxg3sbua",
+                "consumable": false,
+                "name": "history",
+                "displayName": "history",
+                "description": "",
+                "children": [],
+                "topicNodeType": "literal",
+                "type": "topicNode"
+              },
+              {
+                "id": "b2qymj7v51e",
+                "consumable": false,
+                "name": "req",
+                "displayName": "req",
+                "description": "",
+                "children": [],
+                "topicNodeType": "literal",
+                "type": "topicNode"
+              },
+              {
+                "id": "lpdd3zg9dtz",
+                "consumable": false,
+                "name": "v1",
+                "displayName": "v1",
+                "description": "",
+                "children": [],
+                "topicNodeType": "literal",
+                "type": "topicNode"
+              },
+              {
+                "id": "ym8lupa93i5",
+                "consumable": false,
+                "name": "platform",
+                "displayName": "platform",
+                "topicNodeType": "variable",
+                "type": "topicNode"
+              },
+              {
+                "id": "6ocqfbk50ps",
+                "consumable": false,
+                "name": "partner",
+                "displayName": "partner",
+                "topicNodeType": "variable",
+                "type": "topicNode"
+              },
+              {
+                "id": "n9ec8979u6d",
+                "consumable": true,
+                "name": "uuid",
+                "displayName": "uuid",
+                "topicNodeType": "variable",
+                "type": "topicNode"
+              }
+            ],
+            "type": "topicAddress"
+          },
+          "type": "event"
+        },
+        {
+          "createdTime": 1632468470754,
+          "updatedTime": 1633522159439,
+          "createdBy": "3e2ocmx98j",
+          "changedBy": "67tr8tkuc3",
+          "id": "3plg76a14ej",
+          "name": "fraudCheck (request)",
+          "version": "0.0.1",
+          "shared": false,
+          "description": "Request message representing the RESTful API POST operation to check for fraud on a specified credit card. \nThe message itself is produced by the PubSub+ Event Broker's Microgateway feature after protocol mediating the HTTP operation to a message.",
+          "schemaId": null,
+          "schemaVersionId": null,
+          "keySchemaId": null,
+          "keySchemaVersionId": null,
+          "applicationDomainId": "6mpvlr3z9fd",
+          "revisionNumber": 6,
+          "keyPrimitivePayloadType": null,
+          "valuePrimitivePayloadType": null,
+          "topicAddress": {
+            "id": "o9bu0efd88i",
+            "virtualBrokerId": "cf3rx6j30gm",
+            "topicAddressLevels": [
+              {
+                "id": "38tvfnicna9",
+                "consumable": false,
+                "name": "POST",
+                "displayName": "POST",
+                "description": "Fixed element of the topic taxonomy and set to match the HTTP operation received by the Microgateway feature.",
+                "children": [],
+                "topicNodeType": "literal",
+                "type": "topicNode"
+              },
+              {
+                "id": "2kirqtuf02w",
+                "consumable": true,
+                "name": "fraudCheck",
+                "displayName": "fraudCheck",
+                "description": "The URI of the HTTP operation as mapped over by the Microgateway feature",
+                "children": [],
+                "topicNodeType": "literal",
+                "type": "topicNode"
+              }
+            ],
+            "type": "topicAddress"
+          },
+          "type": "event"
+        },
+        {
+          "createdTime": 1632468754653,
+          "updatedTime": 1633521664679,
+          "createdBy": "3e2ocmx98j",
+          "changedBy": "67tr8tkuc3",
+          "id": "702rv2oy378",
+          "name": "fraudCheckStatus (request)",
+          "version": "0.0.1",
+          "shared": true,
+          "description": "A request message to check the fraud status of a given credit card",
+          "schemaId": null,
+          "schemaVersionId": null,
+          "keySchemaId": null,
+          "keySchemaVersionId": null,
+          "applicationDomainId": "6mpvlr3z9fd",
+          "revisionNumber": 3,
+          "keyPrimitivePayloadType": null,
+          "valuePrimitivePayloadType": null,
+          "topicAddress": {
+            "id": "53pud3wobfq",
+            "virtualBrokerId": "cf3rx6j30gm",
+            "topicAddressLevels": [
+              {
+                "id": "4n30scrj4mc",
+                "consumable": false,
+                "name": "myBank",
+                "displayName": "myBank",
+                "description": "",
+                "children": [],
+                "topicNodeType": "literal",
+                "type": "topicNode"
+              },
+              {
+                "id": "wi44r8bj72k",
+                "consumable": false,
+                "name": "cards",
+                "displayName": "cards",
+                "description": "",
+                "children": [],
+                "topicNodeType": "literal",
+                "type": "topicNode"
+              },
+              {
+                "id": "cxj440tz3ww",
+                "consumable": false,
+                "name": "fraudCheckApi",
+                "displayName": "fraudCheckApi",
+                "description": "Name of the externally accessed API this service is supporting",
+                "children": [],
+                "topicNodeType": "literal",
+                "type": "topicNode"
+              },
+              {
+                "id": "2c1jac69w25",
+                "consumable": false,
+                "name": "status",
+                "displayName": "status",
+                "description": "The operation of the external API this service is supporting",
+                "children": [],
+                "topicNodeType": "literal",
+                "type": "topicNode"
+              },
+              {
+                "id": "kw7prbr97ti",
+                "consumable": false,
+                "name": "v1",
+                "displayName": "v1",
+                "description": "Version of the Event",
+                "children": [],
+                "topicNodeType": "literal",
+                "type": "topicNode"
+              },
+              {
+                "id": "qo2uf00xy44",
+                "consumable": false,
+                "name": "platform",
+                "displayName": "platform",
+                "description": "Name of the source platform originating this request",
+                "topicNodeType": "variable",
+                "type": "topicNode"
+              },
+              {
+                "id": "emqpbr2ka1l",
+                "consumable": true,
+                "name": "partner",
+                "displayName": "partner",
+                "description": "Name of the partner that originated this request",
+                "topicNodeType": "variable",
+                "type": "topicNode"
+              }
+            ],
+            "type": "topicAddress"
+          },
+          "type": "event"
+        },
+        {
+          "createdTime": 1633525233700,
+          "updatedTime": 1633525233700,
+          "createdBy": "67tr8tkuc3",
+          "changedBy": "67tr8tkuc3",
+          "id": "26x6s82x4zm",
+          "name": "CardBlockRequest (reply)",
+          "version": "0.0.1",
+          "shared": false,
+          "description": "Reply message from the Card Block Service",
+          "schemaId": null,
+          "schemaVersionId": null,
+          "keySchemaId": null,
+          "keySchemaVersionId": null,
+          "applicationDomainId": "6mpvlr3z9fd",
+          "revisionNumber": 1,
+          "keyPrimitivePayloadType": null,
+          "valuePrimitivePayloadType": null,
+          "topicAddress": {
+            "id": "ykwndfmdj8l",
+            "virtualBrokerId": "cf3rx6j30gm",
+            "topicAddressLevels": [
+              {
+                "id": "4n30scrj4mc",
+                "consumable": false,
+                "name": "myBank",
+                "displayName": "myBank",
+                "description": "",
+                "children": [],
+                "topicNodeType": "literal",
+                "type": "topicNode"
+              },
+              {
+                "id": "wi44r8bj72k",
+                "consumable": false,
+                "name": "cards",
+                "displayName": "cards",
+                "description": "",
+                "children": [],
+                "topicNodeType": "literal",
+                "type": "topicNode"
+              },
+              {
+                "id": "cxj440tz3ww",
+                "consumable": false,
+                "name": "fraudCheckApi",
+                "displayName": "fraudCheckApi",
+                "description": "Name of the externally accessed API this service is supporting",
+                "children": [],
+                "topicNodeType": "literal",
+                "type": "topicNode"
+              },
+              {
+                "id": "kxxy5wjp75o",
+                "consumable": false,
+                "name": "reply",
+                "displayName": "reply",
+                "description": "",
+                "children": [],
+                "topicNodeType": "literal",
+                "type": "topicNode"
+              },
+              {
+                "id": "bhjhqwu9aid",
+                "consumable": false,
+                "name": "cardService",
+                "displayName": "cardService",
+                "description": "",
+                "children": [],
+                "topicNodeType": "literal",
+                "type": "topicNode"
+              },
+              {
+                "id": "iu19j87d3f7",
+                "consumable": false,
+                "name": "block",
+                "displayName": "block",
+                "description": "",
+                "children": [],
+                "topicNodeType": "literal",
+                "type": "topicNode"
+              },
+              {
+                "id": "1b22rpyo88v",
+                "consumable": false,
+                "name": "req",
+                "displayName": "req",
+                "description": "",
+                "children": [],
+                "topicNodeType": "literal",
+                "type": "topicNode"
+              },
+              {
+                "id": "x92fojlqzv5",
+                "consumable": false,
+                "name": "v1",
+                "displayName": "v1",
+                "description": "",
+                "children": [],
+                "topicNodeType": "literal",
+                "type": "topicNode"
+              },
+              {
+                "id": "69fnllvblh8",
+                "consumable": false,
+                "name": "platform",
+                "displayName": "platform",
+                "topicNodeType": "variable",
+                "type": "topicNode"
+              },
+              {
+                "id": "4k2j6z4urh1",
+                "consumable": false,
+                "name": "partner",
+                "displayName": "partner",
+                "topicNodeType": "variable",
+                "type": "topicNode"
+              },
+              {
+                "id": "8ptxcnenjpv",
+                "consumable": true,
+                "name": "uuid",
+                "displayName": "uuid",
+                "topicNodeType": "variable",
+                "type": "topicNode"
+              }
+            ],
+            "type": "topicAddress"
+          },
+          "type": "event"
+        },
+        {
+          "createdTime": 1633524215533,
+          "updatedTime": 1633524215533,
+          "createdBy": "67tr8tkuc3",
+          "changedBy": "67tr8tkuc3",
+          "id": "yes6vvi3444",
+          "name": "FraudDetectionStatus (request)",
+          "version": "0.0.1",
+          "shared": false,
+          "description": "A request message for the Fraud Detection Service",
+          "schemaId": null,
+          "schemaVersionId": null,
+          "keySchemaId": null,
+          "keySchemaVersionId": null,
+          "applicationDomainId": "6mpvlr3z9fd",
+          "revisionNumber": 1,
+          "keyPrimitivePayloadType": null,
+          "valuePrimitivePayloadType": null,
+          "topicAddress": {
+            "id": "rfrffgu0mrk",
+            "virtualBrokerId": "cf3rx6j30gm",
+            "topicAddressLevels": [
+              {
+                "id": "4n30scrj4mc",
+                "consumable": false,
+                "name": "myBank",
+                "displayName": "myBank",
+                "description": "",
+                "children": [],
+                "topicNodeType": "literal",
+                "type": "topicNode"
+              },
+              {
+                "id": "wi44r8bj72k",
+                "consumable": false,
+                "name": "cards",
+                "displayName": "cards",
+                "description": "",
+                "children": [],
+                "topicNodeType": "literal",
+                "type": "topicNode"
+              },
+              {
+                "id": "k700kg3dpo9",
+                "consumable": false,
+                "name": "fraudService",
+                "displayName": "fraudService",
+                "description": "",
+                "children": [],
+                "topicNodeType": "literal",
+                "type": "topicNode"
+              },
+              {
+                "id": "pc9pfi3bv0e",
+                "consumable": false,
+                "name": "status",
+                "displayName": "status",
+                "description": "",
+                "children": [],
+                "topicNodeType": "literal",
+                "type": "topicNode"
+              },
+              {
+                "id": "jhnslhyc03x",
+                "consumable": false,
+                "name": "req",
+                "displayName": "req",
+                "description": "",
+                "children": [],
+                "topicNodeType": "literal",
+                "type": "topicNode"
+              },
+              {
+                "id": "znqmto44i1d",
+                "consumable": false,
+                "name": "v1",
+                "displayName": "v1",
+                "description": "",
+                "children": [],
+                "topicNodeType": "literal",
+                "type": "topicNode"
+              },
+              {
+                "id": "i09wpkfkr5e",
+                "consumable": false,
+                "name": "platform",
+                "displayName": "platform",
+                "topicNodeType": "variable",
+                "type": "topicNode"
+              },
+              {
+                "id": "7a9m2w7es5y",
+                "consumable": false,
+                "name": "partner",
+                "displayName": "partner",
+                "topicNodeType": "variable",
+                "type": "topicNode"
+              },
+              {
+                "id": "na32860hnus",
+                "consumable": true,
+                "name": "uuid",
+                "displayName": "uuid",
+                "topicNodeType": "variable",
+                "type": "topicNode"
+              }
+            ],
+            "type": "topicAddress"
+          },
+          "type": "event"
+        },
+        {
+          "createdTime": 1632471107796,
+          "updatedTime": 1632471107796,
+          "createdBy": "3e2ocmx98j",
+          "changedBy": "3e2ocmx98j",
+          "id": "8cdhkdflxpg",
+          "name": "fraudServiceReplyEvent",
+          "version": "0.0.1",
+          "shared": false,
+          "description": "fraud Service Reply Event",
+          "schemaId": null,
+          "schemaVersionId": null,
+          "keySchemaId": null,
+          "keySchemaVersionId": null,
+          "applicationDomainId": "6mpvlr3z9fd",
+          "revisionNumber": 1,
+          "keyPrimitivePayloadType": null,
+          "valuePrimitivePayloadType": null,
+          "topicAddress": null,
+          "type": "event"
+        },
+        {
+          "createdTime": 1632471761542,
+          "updatedTime": 1633520924281,
+          "createdBy": "3e2ocmx98j",
+          "changedBy": "67tr8tkuc3",
+          "id": "xk72o1125tm",
+          "name": "fraudCheckStatus (reply)",
+          "version": "0.0.1",
+          "shared": false,
+          "description": "The final reply message with the results of the original fraudCheckStatus API call",
+          "schemaId": null,
+          "schemaVersionId": null,
+          "keySchemaId": null,
+          "keySchemaVersionId": null,
+          "applicationDomainId": "6mpvlr3z9fd",
+          "revisionNumber": 2,
+          "keyPrimitivePayloadType": null,
+          "valuePrimitivePayloadType": null,
+          "topicAddress": null,
+          "type": "event"
+        },
+        {
+          "createdTime": 1633524847045,
+          "updatedTime": 1633524847045,
+          "createdBy": "67tr8tkuc3",
+          "changedBy": "67tr8tkuc3",
+          "id": "e4ba8i0vsuc",
+          "name": "fraudCheckStatus - Error Internal",
+          "version": "0.0.1",
+          "shared": false,
+          "description": "An event signalling that an error occured while accessing the internal services. \nThe event itself can trigger other error handling such as request retry logic.\n\nIn the simplest case, the internal error needs to be processed to produce a message suitable for the externally facing API caller.",
+          "schemaId": null,
+          "schemaVersionId": null,
+          "keySchemaId": null,
+          "keySchemaVersionId": null,
+          "applicationDomainId": "6mpvlr3z9fd",
+          "revisionNumber": 1,
+          "keyPrimitivePayloadType": null,
+          "valuePrimitivePayloadType": null,
+          "topicAddress": {
+            "id": "c2a5qaullw4",
+            "virtualBrokerId": "cf3rx6j30gm",
+            "topicAddressLevels": [
+              {
+                "id": "4n30scrj4mc",
+                "consumable": false,
+                "name": "myBank",
+                "displayName": "myBank",
+                "description": "",
+                "children": [],
+                "topicNodeType": "literal",
+                "type": "topicNode"
+              },
+              {
+                "id": "wi44r8bj72k",
+                "consumable": false,
+                "name": "cards",
+                "displayName": "cards",
+                "description": "",
+                "children": [],
+                "topicNodeType": "literal",
+                "type": "topicNode"
+              },
+              {
+                "id": "cxj440tz3ww",
+                "consumable": false,
+                "name": "fraudCheckApi",
+                "displayName": "fraudCheckApi",
+                "description": "Name of the externally accessed API this service is supporting",
+                "children": [],
+                "topicNodeType": "literal",
+                "type": "topicNode"
+              },
+              {
+                "id": "21c7z94jox8",
+                "consumable": true,
+                "name": "error",
+                "displayName": "error",
+                "description": "",
+                "children": [],
+                "topicNodeType": "literal",
+                "type": "topicNode"
+              }
+            ],
+            "type": "topicAddress"
+          },
+          "type": "event"
+        },
+        {
+          "createdTime": 1633521926992,
+          "updatedTime": 1633521926992,
+          "createdBy": "67tr8tkuc3",
+          "changedBy": "67tr8tkuc3",
+          "id": "8fgd6r4mfrp",
+          "name": "fraudCheck (HTTP Response)",
+          "version": "0.0.1",
+          "shared": false,
+          "description": "",
+          "schemaId": null,
+          "schemaVersionId": null,
+          "keySchemaId": null,
+          "keySchemaVersionId": null,
+          "applicationDomainId": "6mpvlr3z9fd",
+          "revisionNumber": 1,
+          "keyPrimitivePayloadType": null,
+          "valuePrimitivePayloadType": null,
+          "topicAddress": null,
+          "type": "event"
+        },
+        {
+          "createdTime": 1633525557198,
+          "updatedTime": 1633525604371,
+          "createdBy": "67tr8tkuc3",
+          "changedBy": "67tr8tkuc3",
+          "id": "urelkfgx4yg",
+          "name": "fraudCheckStatus (request) [TTL Time Out]",
+          "version": "0.0.1",
+          "shared": true,
+          "description": "A copy of the request message to check the fraud status of a given credit card, after it has expired due to the TTL setting and failed to get processed by the Orchestrator Service",
+          "schemaId": null,
+          "schemaVersionId": null,
+          "keySchemaId": null,
+          "keySchemaVersionId": null,
+          "applicationDomainId": "6mpvlr3z9fd",
+          "revisionNumber": 2,
+          "keyPrimitivePayloadType": null,
+          "valuePrimitivePayloadType": null,
+          "topicAddress": {
+            "id": "53pud3wobfq",
+            "virtualBrokerId": "cf3rx6j30gm",
+            "topicAddressLevels": [
+              {
+                "id": "4n30scrj4mc",
+                "consumable": false,
+                "name": "myBank",
+                "displayName": "myBank",
+                "description": "",
+                "children": [],
+                "topicNodeType": "literal",
+                "type": "topicNode"
+              },
+              {
+                "id": "wi44r8bj72k",
+                "consumable": false,
+                "name": "cards",
+                "displayName": "cards",
+                "description": "",
+                "children": [],
+                "topicNodeType": "literal",
+                "type": "topicNode"
+              },
+              {
+                "id": "cxj440tz3ww",
+                "consumable": false,
+                "name": "fraudCheckApi",
+                "displayName": "fraudCheckApi",
+                "description": "Name of the externally accessed API this service is supporting",
+                "children": [],
+                "topicNodeType": "literal",
+                "type": "topicNode"
+              },
+              {
+                "id": "2c1jac69w25",
+                "consumable": false,
+                "name": "status",
+                "displayName": "status",
+                "description": "The operation of the external API this service is supporting",
+                "children": [],
+                "topicNodeType": "literal",
+                "type": "topicNode"
+              },
+              {
+                "id": "kw7prbr97ti",
+                "consumable": false,
+                "name": "v1",
+                "displayName": "v1",
+                "description": "Version of the Event",
+                "children": [],
+                "topicNodeType": "literal",
+                "type": "topicNode"
+              },
+              {
+                "id": "qo2uf00xy44",
+                "consumable": false,
+                "name": "platform",
+                "displayName": "platform",
+                "description": "Name of the source platform originating this request",
+                "topicNodeType": "variable",
+                "type": "topicNode"
+              },
+              {
+                "id": "emqpbr2ka1l",
+                "consumable": true,
+                "name": "partner",
+                "displayName": "partner",
+                "description": "Name of the partner that originated this request",
+                "topicNodeType": "variable",
+                "type": "topicNode"
+              }
+            ],
+            "type": "topicAddress"
+          },
+          "type": "event"
+        },
+        {
+          "createdTime": 1633525034839,
+          "updatedTime": 1633525034839,
+          "createdBy": "67tr8tkuc3",
+          "changedBy": "67tr8tkuc3",
+          "id": "f9yp43icbd1",
+          "name": "CardBlockRequest (request)",
+          "version": "0.0.1",
+          "shared": false,
+          "description": "A request message for the Card Block Service",
+          "schemaId": null,
+          "schemaVersionId": null,
+          "keySchemaId": null,
+          "keySchemaVersionId": null,
+          "applicationDomainId": "6mpvlr3z9fd",
+          "revisionNumber": 1,
+          "keyPrimitivePayloadType": null,
+          "valuePrimitivePayloadType": null,
+          "topicAddress": {
+            "id": "8fq35j2oybm",
+            "virtualBrokerId": "cf3rx6j30gm",
+            "topicAddressLevels": [
+              {
+                "id": "4n30scrj4mc",
+                "consumable": false,
+                "name": "myBank",
+                "displayName": "myBank",
+                "description": "",
+                "children": [],
+                "topicNodeType": "literal",
+                "type": "topicNode"
+              },
+              {
+                "id": "wi44r8bj72k",
+                "consumable": false,
+                "name": "cards",
+                "displayName": "cards",
+                "description": "",
+                "children": [],
+                "topicNodeType": "literal",
+                "type": "topicNode"
+              },
+              {
+                "id": "5np9o26d5qg",
+                "consumable": false,
+                "name": "cardService",
+                "displayName": "cardService",
+                "description": "",
+                "children": [],
+                "topicNodeType": "literal",
+                "type": "topicNode"
+              },
+              {
+                "id": "9n6vqalec3a",
+                "consumable": false,
+                "name": "block",
+                "displayName": "block",
+                "description": "",
+                "children": [],
+                "topicNodeType": "literal",
+                "type": "topicNode"
+              },
+              {
+                "id": "mxh1kbhd8e8",
+                "consumable": false,
+                "name": "req",
+                "displayName": "req",
+                "description": "",
+                "children": [],
+                "topicNodeType": "literal",
+                "type": "topicNode"
+              },
+              {
+                "id": "3j50j089l9x",
+                "consumable": false,
+                "name": "v1",
+                "displayName": "v1",
+                "description": "",
+                "children": [],
+                "topicNodeType": "literal",
+                "type": "topicNode"
+              },
+              {
+                "id": "mjm8jii47wj",
+                "consumable": false,
+                "name": "platform",
+                "displayName": "platform",
+                "topicNodeType": "variable",
+                "type": "topicNode"
+              },
+              {
+                "id": "u78tv758j8f",
+                "consumable": false,
+                "name": "partner",
+                "displayName": "partner",
+                "topicNodeType": "variable",
+                "type": "topicNode"
+              },
+              {
+                "id": "oeh8gynnzuh",
+                "consumable": true,
+                "name": "uuid",
+                "displayName": "uuid",
+                "topicNodeType": "variable",
+                "type": "topicNode"
+              }
+            ],
+            "type": "topicAddress"
+          },
+          "type": "event"
+        },
+        {
+          "createdTime": 1633524388639,
+          "updatedTime": 1633524388639,
+          "createdBy": "67tr8tkuc3",
+          "changedBy": "67tr8tkuc3",
+          "id": "ljqj5dqr1r2",
+          "name": "FraudDetectionStatus (reply)",
+          "version": "0.0.1",
+          "shared": false,
+          "description": "Reply message from the Fraud Detection Service",
+          "schemaId": null,
+          "schemaVersionId": null,
+          "keySchemaId": null,
+          "keySchemaVersionId": null,
+          "applicationDomainId": "6mpvlr3z9fd",
+          "revisionNumber": 1,
+          "keyPrimitivePayloadType": null,
+          "valuePrimitivePayloadType": null,
+          "topicAddress": {
+            "id": "45hpbk4svf5",
+            "virtualBrokerId": "cf3rx6j30gm",
+            "topicAddressLevels": [
+              {
+                "id": "4n30scrj4mc",
+                "consumable": false,
+                "name": "myBank",
+                "displayName": "myBank",
+                "description": "",
+                "children": [],
+                "topicNodeType": "literal",
+                "type": "topicNode"
+              },
+              {
+                "id": "wi44r8bj72k",
+                "consumable": false,
+                "name": "cards",
+                "displayName": "cards",
+                "description": "",
+                "children": [],
+                "topicNodeType": "literal",
+                "type": "topicNode"
+              },
+              {
+                "id": "cxj440tz3ww",
+                "consumable": false,
+                "name": "fraudCheckApi",
+                "displayName": "fraudCheckApi",
+                "description": "Name of the externally accessed API this service is supporting",
+                "children": [],
+                "topicNodeType": "literal",
+                "type": "topicNode"
+              },
+              {
+                "id": "kxxy5wjp75o",
+                "consumable": false,
+                "name": "reply",
+                "displayName": "reply",
+                "description": "",
+                "children": [],
+                "topicNodeType": "literal",
+                "type": "topicNode"
+              },
+              {
+                "id": "d3uh9n45v54",
+                "consumable": false,
+                "name": "fraudService",
+                "displayName": "fraudService",
+                "description": "",
+                "children": [],
+                "topicNodeType": "literal",
+                "type": "topicNode"
+              },
+              {
+                "id": "xbjqd7q2x6f",
+                "consumable": false,
+                "name": "status",
+                "displayName": "status",
+                "description": "",
+                "children": [],
+                "topicNodeType": "literal",
+                "type": "topicNode"
+              },
+              {
+                "id": "ug398qoag5s",
+                "consumable": false,
+                "name": "v1",
+                "displayName": "v1",
+                "description": "",
+                "children": [],
+                "topicNodeType": "literal",
+                "type": "topicNode"
+              },
+              {
+                "id": "hl9yakye82h",
+                "consumable": false,
+                "name": "platform",
+                "displayName": "platform",
+                "topicNodeType": "variable",
+                "type": "topicNode"
+              },
+              {
+                "id": "50mqh42we5q",
+                "consumable": false,
+                "name": "partner",
+                "displayName": "partner",
+                "topicNodeType": "variable",
+                "type": "topicNode"
+              },
+              {
+                "id": "vjgw1pfciaj",
+                "consumable": true,
+                "name": "uuid",
+                "displayName": "uuid",
+                "topicNodeType": "variable",
+                "type": "topicNode"
+              }
+            ],
+            "type": "topicAddress"
+          },
+          "type": "event"
+        },
+        {
+          "createdTime": 1633522708288,
+          "updatedTime": 1633524666712,
+          "createdBy": "67tr8tkuc3",
+          "changedBy": "67tr8tkuc3",
+          "id": "xv59p82dddd",
+          "name": "fraudCheckStatus - Error External (reply)",
+          "version": "0.0.1",
+          "shared": false,
+          "description": "A suitably constructed error message for the external API caller to be the response to the HTTP operation. ",
+          "schemaId": null,
+          "schemaVersionId": null,
+          "keySchemaId": null,
+          "keySchemaVersionId": null,
+          "applicationDomainId": "6mpvlr3z9fd",
+          "revisionNumber": 2,
+          "keyPrimitivePayloadType": null,
+          "valuePrimitivePayloadType": null,
+          "topicAddress": null,
+          "type": "event"
+        },
+        {
+          "createdTime": 1633522185735,
+          "updatedTime": 1633522185735,
+          "createdBy": "67tr8tkuc3",
+          "changedBy": "67tr8tkuc3",
+          "id": "veg38k6we83",
+          "name": "fraudCheck (HTTP POST)",
+          "version": "0.0.1",
+          "shared": false,
+          "description": "",
+          "schemaId": null,
+          "schemaVersionId": null,
+          "keySchemaId": null,
+          "keySchemaVersionId": null,
+          "applicationDomainId": "6mpvlr3z9fd",
+          "revisionNumber": 1,
+          "keyPrimitivePayloadType": null,
+          "valuePrimitivePayloadType": null,
+          "topicAddress": null,
+          "type": "event"
+        },
+        {
+          "createdTime": 1632470973053,
+          "updatedTime": 1632470973053,
+          "createdBy": "3e2ocmx98j",
+          "changedBy": "3e2ocmx98j",
+          "id": "klwec7gw1pr",
+          "name": "fraudServiceRequestEvent",
+          "version": "0.0.1",
+          "shared": true,
+          "description": "Fraud Service Request Event",
+          "schemaId": null,
+          "schemaVersionId": null,
+          "keySchemaId": null,
+          "keySchemaVersionId": null,
+          "applicationDomainId": "6mpvlr3z9fd",
+          "revisionNumber": 1,
+          "keyPrimitivePayloadType": null,
+          "valuePrimitivePayloadType": null,
+          "topicAddress": null,
+          "type": "event"
+        },
+        {
+          "createdTime": 1632470854268,
+          "updatedTime": 1633524043853,
+          "createdBy": "3e2ocmx98j",
+          "changedBy": "67tr8tkuc3",
+          "id": "6dhftpzzy7q",
+          "name": "TransactionsHistory (reply)",
+          "version": "0.0.1",
+          "shared": false,
+          "description": "Reply message from the Transactions History Service",
+          "schemaId": null,
+          "schemaVersionId": null,
+          "keySchemaId": null,
+          "keySchemaVersionId": null,
+          "applicationDomainId": "6mpvlr3z9fd",
+          "revisionNumber": 3,
+          "keyPrimitivePayloadType": null,
+          "valuePrimitivePayloadType": null,
+          "topicAddress": {
+            "id": "p543nkmdm7l",
+            "virtualBrokerId": "cf3rx6j30gm",
+            "topicAddressLevels": [
+              {
+                "id": "4n30scrj4mc",
+                "consumable": false,
+                "name": "myBank",
+                "displayName": "myBank",
+                "description": "",
+                "children": [],
+                "topicNodeType": "literal",
+                "type": "topicNode"
+              },
+              {
+                "id": "wi44r8bj72k",
+                "consumable": false,
+                "name": "cards",
+                "displayName": "cards",
+                "description": "",
+                "children": [],
+                "topicNodeType": "literal",
+                "type": "topicNode"
+              },
+              {
+                "id": "cxj440tz3ww",
+                "consumable": false,
+                "name": "fraudCheckApi",
+                "displayName": "fraudCheckApi",
+                "description": "Name of the externally accessed API this service is supporting",
+                "children": [],
+                "topicNodeType": "literal",
+                "type": "topicNode"
+              },
+              {
+                "id": "kxxy5wjp75o",
+                "consumable": false,
+                "name": "reply",
+                "displayName": "reply",
+                "description": "",
+                "children": [],
+                "topicNodeType": "literal",
+                "type": "topicNode"
+              },
+              {
+                "id": "kssz5vl0478",
+                "consumable": false,
+                "name": "txnService",
+                "displayName": "txnService",
+                "description": "",
+                "children": [],
+                "topicNodeType": "literal",
+                "type": "topicNode"
+              },
+              {
+                "id": "r9ko2dnzrew",
+                "consumable": false,
+                "name": "history",
+                "displayName": "history",
+                "description": "",
+                "children": [],
+                "topicNodeType": "literal",
+                "type": "topicNode"
+              },
+              {
+                "id": "2jbet1fg034",
+                "consumable": false,
+                "name": "v1",
+                "displayName": "v1",
+                "description": "",
+                "children": [],
+                "topicNodeType": "literal",
+                "type": "topicNode"
+              },
+              {
+                "id": "6lypgmxxmm3",
+                "consumable": false,
+                "name": "platform",
+                "displayName": "platform",
+                "topicNodeType": "variable",
+                "type": "topicNode"
+              },
+              {
+                "id": "bk01zqhue6l",
+                "consumable": false,
+                "name": "partner",
+                "displayName": "partner",
+                "topicNodeType": "variable",
+                "type": "topicNode"
+              },
+              {
+                "id": "q69oakjwegy",
+                "consumable": true,
+                "name": "uuid",
+                "displayName": "uuid",
+                "description": "",
+                "children": [],
+                "topicNodeType": "literal",
+                "type": "topicNode"
+              }
+            ],
+            "type": "topicAddress"
+          },
+          "type": "event"
+        }
+      ],
+      "applications": [
+        {
+          "createdTime": 1633518834627,
+          "updatedTime": 1633522209806,
+          "createdBy": "67tr8tkuc3",
+          "changedBy": "67tr8tkuc3",
+          "id": "5r161ytsyoy",
+          "name": "External REST API Caller",
+          "version": "0.0.1",
+          "description": "A representation of the external application that uses a REST API that is supported by event-driven architecture.\n\nIt's HTTP operation is protocol mediated to a request message by the PubSub+ Event Broker's Microgateway feature.",
+          "applicationDomainId": "6mpvlr3z9fd",
+          "producedEventIds": [
+            "veg38k6we83"
+          ],
+          "consumedEventIds": [
+            "8fgd6r4mfrp"
+          ],
+          "revisionNumber": 8,
+          "applicationClass": "unspecified",
+          "endpoints": [],
+          "type": "application"
+        },
+        {
+          "createdTime": 1633521802974,
+          "updatedTime": 1633522758844,
+          "createdBy": "67tr8tkuc3",
+          "changedBy": "67tr8tkuc3",
+          "id": "5i2f1vfjc08",
+          "name": "Microgateway Feature",
+          "version": "0.0.1",
+          "description": "This is a representation of the Microgateway feature in the PubSub+ Event Broker that protocol mediates the HTTP operation to a request message.",
+          "applicationDomainId": "6mpvlr3z9fd",
+          "producedEventIds": [
+            "3plg76a14ej",
+            "8fgd6r4mfrp"
+          ],
+          "consumedEventIds": [
+            "veg38k6we83",
+            "xk72o1125tm",
+            "xv59p82dddd"
+          ],
+          "revisionNumber": 8,
+          "applicationClass": "unspecified",
+          "endpoints": [],
+          "type": "application"
+        },
+        {
+          "createdTime": 1633522562548,
+          "updatedTime": 1633525578616,
+          "createdBy": "67tr8tkuc3",
+          "changedBy": "67tr8tkuc3",
+          "id": "7f5qqyc9j90",
+          "name": "fraudCheck - Error Handling Service",
+          "version": "0.0.1",
+          "description": "This service generically receives any error messages from the internal services, to then produce a final, externally-suitable response message back to the API caller.",
+          "applicationDomainId": "6mpvlr3z9fd",
+          "producedEventIds": [
+            "xv59p82dddd"
+          ],
+          "consumedEventIds": [
+            "e4ba8i0vsuc",
+            "urelkfgx4yg"
+          ],
+          "revisionNumber": 4,
+          "applicationClass": "unspecified",
+          "endpoints": [],
+          "type": "application"
+        },
+        {
+          "createdTime": 1632471509357,
+          "updatedTime": 1633525266034,
+          "createdBy": "3e2ocmx98j",
+          "changedBy": "67tr8tkuc3",
+          "id": "j3kwtw7vh4d",
+          "name": "fraudCheck - Orchestrator Service",
+          "version": "0.0.1",
+          "description": "",
+          "applicationDomainId": "6mpvlr3z9fd",
+          "producedEventIds": [
+            "bny6v5wircl",
+            "e4ba8i0vsuc",
+            "f9yp43icbd1",
+            "xk72o1125tm",
+            "yes6vvi3444"
+          ],
+          "consumedEventIds": [
+            "26x6s82x4zm",
+            "6dhftpzzy7q",
+            "702rv2oy378",
+            "ljqj5dqr1r2"
+          ],
+          "revisionNumber": 9,
+          "applicationClass": "unspecified",
+          "endpoints": [],
+          "type": "application"
+        },
+        {
+          "createdTime": 1632468814996,
+          "updatedTime": 1633522419219,
+          "createdBy": "3e2ocmx98j",
+          "changedBy": "67tr8tkuc3",
+          "id": "1ivg3m1n336",
+          "name": "fraudCheck - Mediator Service",
+          "version": "0.0.1",
+          "description": "A service to Mediate the translation from the externally facing HTTP API to the internal event-driven architecture and its topic taxonomy and payload schemas.\n\nThe service simply subscribes to an event that arrives over the externally visible (and simpler) topic taxonomy and creates a new event intended for the event-driven services on the internal (and more sophisticated) topic taxonomy and payload schemas.\n\nIt is also responsible for setting message headers that will allow other services in the processing pipeline to appropriately send a response message to the topic destination the Microgateway is waiting on for an asynchronous response for the synchronous HTTP operation it has mediated. ",
+          "applicationDomainId": "6mpvlr3z9fd",
+          "producedEventIds": [
+            "702rv2oy378"
+          ],
+          "consumedEventIds": [
+            "3plg76a14ej"
+          ],
+          "revisionNumber": 6,
+          "applicationClass": "unspecified",
+          "endpoints": [],
+          "type": "application"
+        },
+        {
+          "createdTime": 1633523490006,
+          "updatedTime": 1633525245635,
+          "createdBy": "67tr8tkuc3",
+          "changedBy": "67tr8tkuc3",
+          "id": "pxw31fpnk6j",
+          "name": "Card Block Service",
+          "version": "0.0.1",
+          "description": "A service that gets called with a request to block or unblock a given credit card. \nReturns a status of the request, or any error message if the request could not be completed.\n\nThe reply message destination is as provided in the original request message.",
+          "applicationDomainId": "6mpvlr3z9fd",
+          "producedEventIds": [
+            "26x6s82x4zm"
+          ],
+          "consumedEventIds": [
+            "f9yp43icbd1"
+          ],
+          "revisionNumber": 5,
+          "applicationClass": "unspecified",
+          "endpoints": [],
+          "type": "application"
+        },
+        {
+          "createdTime": 1633523338977,
+          "updatedTime": 1633524421221,
+          "createdBy": "67tr8tkuc3",
+          "changedBy": "67tr8tkuc3",
+          "id": "elon6umbr6c",
+          "name": "Fraud Detection Service",
+          "version": "0.0.1",
+          "description": "A service that gets called with a set of transactions for a given credit card to perform analysis of whether fraudulent activity is detected. \nReturns a boolean status of whether fraud is detected, or any error message if the request could not be completed.\n\nThe reply message destination is as provided in the original request message.",
+          "applicationDomainId": "6mpvlr3z9fd",
+          "producedEventIds": [
+            "ljqj5dqr1r2"
+          ],
+          "consumedEventIds": [
+            "yes6vvi3444"
+          ],
+          "revisionNumber": 2,
+          "applicationClass": "unspecified",
+          "endpoints": [],
+          "type": "application"
+        },
+        {
+          "createdTime": 1632471128796,
+          "updatedTime": 1633523834121,
+          "createdBy": "3e2ocmx98j",
+          "changedBy": "67tr8tkuc3",
+          "id": "8x6d2lkiimf",
+          "name": "Transactions History Service",
+          "version": "0.0.1",
+          "description": "A service that returns the requested number of recent transactions for a given credit card account, or any error message if the request could not be completed.\n\nThe reply message destination is as provided in the original request message.",
+          "applicationDomainId": "6mpvlr3z9fd",
+          "producedEventIds": [
+            "6dhftpzzy7q"
+          ],
+          "consumedEventIds": [
+            "bny6v5wircl"
+          ],
+          "revisionNumber": 6,
+          "applicationClass": "unspecified",
+          "endpoints": [],
+          "type": "application"
+        }
+      ],
+      "type": "applicationDomain"
+    }
+  ],
+  "virtualBrokers": [
+    {
+      "createdTime": 1633521004071,
+      "updatedTime": 1633521004071,
+      "createdBy": "67tr8tkuc3",
+      "changedBy": "67tr8tkuc3",
+      "id": "cf3rx6j30gm",
+      "name": "myBank - Credit Cards",
+      "description": "Logical Event Mesh as used by the Credit Cards business of the hypothetical 'myBank'",
+      "brokerType": "solace",
+      "levelDelimiter": "/",
+      "topicNodes": [],
+      "type": "virtualBroker"
+    }
+  ],
+  "topicValueSets": [],
+  "formatVersion": "1",
+  "type": "ApplicationDomainExport"
+}
