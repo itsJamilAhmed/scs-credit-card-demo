@@ -1,5 +1,20 @@
 # Spring Cloud Stream Demo: Credit Card Fraud Checking
 
+## Table of Contents :bookmark_tabs:  
+* [Repository Purpose](#repository-purpose)
+  * [Implementing request reply with Spring Cloud Stream](#implementing-request-reply-with-spring-cloud-stream)
+  * [Use-Case Information: Credit Card Fraud Check](#use-case-information-credit-card-fraud-check)
+* [Services in this repository](#services-in-this-repository)
+  * [Implementation Principles](#implementation-principles)
+* [Running the demo services](#running-the-demo-services)
+  * [Pre-requisites](#pre-requisites-white_check_mark)
+  * [Step by step instructions](#step-one-start-the-mediator-and-error-handling-service)
+* [Appendix: Topic Taxonomy](#appendix-topic-taxonomy) 
+* [Contributing](#contributing)
+* [Authors](#authors)
+* [License](#license)
+* [Resources](#resources)
+
 ## Repository Purpose
 
 > "While the concept of *publish-subscribe messaging* is not new, Spring Cloud Stream takes the extra step of making it an **opinionated choice** for its application model."
@@ -62,15 +77,23 @@ Card Block | This is a simple service that takes a supplied card number and sets
     * The orchestrator service executes in parallel the request to block the card, and the generation of the final response message to the API caller.
     * In other words, it assumes that the caller does not need to wait until the card has actually been blocked before it can be informed of the fraud detection status.
 
-## Running the services
+## Running the demo services
 
-### Public Access Event Broker
+### Pre-requisites :white_check_mark:
+
+#### Option A: Use the public access Event Broker
 
 The configuration files (`application.yaml`) for each of the services uses a PubSub+ Event Broker available for public access and hosted in [Solace Cloud](https://solace.com/products/event-broker/cloud/). This means you are able to checkout the project and run it without needing to [setup an Event Broker of your own first](https://www.solace.dev/). Your running instances of the service will automatically join the competitive consumption against any other instance already running by someone else.
 
-If you want to instead leverage your own broker instance, please update the `spring > cloud > stream > binders > solace-broker` section of each `application.yaml` configuration file first. 
+#### Option B: Use your own Event Broker 
 
-### Step 1. Start the Mediator and Error Handling Service
+If you want to instead leverage your own broker instance: 
+1. Update the `spring > cloud > stream > binders > solace-broker` section of each `application.yaml` configuration file first with connection details of your message VPN.
+2. Configure the microgateway feature to be in `gateway` mode for the message VPN. (More details [here](https://docs.solace.com/Configuring-and-Managing/Microgateway-Tasks/Managing-Microgateway.htm#Configure_VPN_Mode).)
+3. If your client-username does not have permission to provision durable endpoints through the API, create the [necessary queues](https://github.com/itsJamilAhmed/scs-credit-card-demo/blob/main/images/fraudCheck-Queues-List.jpg) with the topic subscriptions as present in the `application.yaml` file. 
+4. Use the REST hostname and port for your message VPN in the commands below that represent the external API caller. (i.e. the `curl` or [postman](https://www.postman.com/) steps.)
+
+### Step :one:: Start the Mediator and Error Handling Service
 
 We will start with a minimal deployment of these two services first. It will demonstrate the ability of one service to receive the HTTP operation as a message, and another separate service to handle an error with the request and produce a response back to the API caller.
 
@@ -95,7 +118,7 @@ cd ApiErrorHandlingService/
 ./gradlew bootRun
 ```
 
-### Step 2: Trigger the fraudCheck API
+### Step :two:: Trigger the fraudCheck API
 
 To trigger the deployed microservices, issue a HTTP POST operation using a tool like `curl` or [postman](https://www.postman.com/) using the details below. 
 (This directly hits the Microgateway feature of the above mentioned public access Event Broker, but could easily have been fronted by an API Gateway product first to pass-thru the HTTP call.)
@@ -119,7 +142,7 @@ If all successful, the empty payload will trigger the Mediator Service to genera
 
 No other service (such as the Orchestrator) was needed at this stage. We will go onto to deploy them next.
 
-### Step 3: Start the Orchestrator, Transactions History, Fraud Detection and Card Block Services
+### Step :three:: Start the Orchestrator, Transactions History, Fraud Detection and Card Block Services
 
 Once again across separate terminals, start the services like so:
 
@@ -147,7 +170,7 @@ cd CardBlockService/
 ./gradlew bootRun
 ```
 
-### Step 4: Invoke fraudCheck API with valid payload
+### Step :four:: Invoke fraudCheck API with valid payload
 
 Just as in step 2 above, invoke the API again using your tool of choice. This time with this sample JSON payload:
 
@@ -164,7 +187,7 @@ Using curl this might look something like:
 curl -u scs-demo-public-user:scs-demo-public-user -H "Content-Type: application/json" -X POST https://public-demo-broker.messaging.solace.cloud:9443/fraudCheck -d '{ "partner":"onyx", "cardNumber": "1234-5678-1234-5688", "blockCardIfFraudulent":true }'
 ```
 
-### Step 5: Review Orchestrator log output
+### Step :five:: Review Orchestrator log output
 
 The Orchestrator Service is a natural observation point of the whole event flow and processing pipeline. Multiple input channels are used to invoke processing functions to further the orchestrated pipeline.
 
@@ -177,7 +200,58 @@ A sample log output is below for comparison:
 #### Not seeing the logs update? :confused: 
 If the logs in your deployed service instance are not updating when you issue the API calls, yet still getting a response, it means another instance deployed by someone else has picked it up and processed it. 
 
+### Step :six:: Terminate the Orchestrator Service
+
+This last step is about demonstrating another exception path in the processing pipeline. 
+Assuming your instance of the Orchestrator was the only one running, or you are running these tests against your own dedicated Event Broker, the lack of the Orchestrator Service effectively means the API cannot be properly serviced. After the request has passed the mediator service, what options are available to monitor the pipeline and take any recovery steps?
+
+While the powers of persistent messaging mean that request message can sit forever waiting for the Orchestrator Service to return, it is not the desired behaviour with a synchronous call essentially waiting for a response. That call actually needs to timeout gracefully in this exceptional scenario so the caller can try again later. 
+Fortunately, the Solace PubSub+ features of message [time-to-live and dead-message-queues (DMQs)](https://docs.solace.com/Solace-JMS-API/Setting-Message-Properties.htm?Highlight=Time%20to%20live) can help here. 
+
+The Mediator Service can set some message properties to make that request time out after a given period (say 3 seconds), and let that message move to the inbound channel (i.e. queue) of another waiting service instead. That is the Error Handling Service in this example, with that assuming responsibility to send an apprioriate response to the caller.
+
+With the Orchestrator Service terminated, issue a new API call like in Step 4 earlier.
+
+Using curl this might look something like: 
+```
+curl -u scs-demo-public-user:scs-demo-public-user -H "Content-Type: application/json" -X POST https://public-demo-broker.messaging.solace.cloud:9443/fraudCheck -d '{ "partner":"onyx", "cardNumber": "1234-5678-1234-5688", "blockCardIfFraudulent":true }'
+```
+
+After a 3 second wait, you should see a response like so:
+```
+{
+    "status": "error",
+    "errorMsg": "This service is currently unavailable. Please try again later.",
+    "elapsedTimeMs": 3090
+}
+```
+
 ### And that's it!
+
+## Appendix: Topic Taxonomy
+
+These sample services use a topic taxonomy to demonstrate three important concepts:
+1. Wildcarded subscription by consumers to attract events of interest
+2. Dynamic elements being incorporated into a final target destination as set by publishers
+3. Topic destinations being generated within a specific 'reply' range in the taxonomy to direct responses back to a given service. (i.e. the Orchestrator)
+
+For advice on defining a comprehensive topic taxonomy, consult the [Solace documentation here](https://docs.solace.com/Best-Practices/Topic-Architecture-Best-Practices.htm). The topics used by these services favour brevity and may not incorporate all the necessary best practices. 
+
+In the table below, elements in `{}` are dynamic elements as determined from either the original API request contents (e.g. `{partner}`) or static strings defined in the service to identify itself as a source system (e.g. `{platform}`).
+
+Service | Subscribe Topic | Publish Topic | Error Topic |
+---- | -------- | ------ | ---- |
+fraudCheck Mediator | `POST/fraudCheck` | `myBank/cards/fraudCheckApi/status/v1/{platform}/{partner}` :ledger: | `myBank/cards/fraudCheckApi/error` :orange_book: |
+fraudCheck **Orchestrator** (getRecentTransactions) | `myBank/cards/fraudCheckApi/status/v1/>` :ledger: | `myBank/cards/txnService/history/req/v1/{platform}/{partner}/{UUID}` :closed_book: | `myBank/cards/fraudCheckApi/error` :orange_book: |
+fraudCheck **Orchestrator** (getFraudStatus) | `myBank/cards/fraudCheckApi/reply/txnService/history/v1/>` :spades: | `myBank/cards/fraudService/status/req/v1/{platform}/{partner}/{UUID}` :green_book: | `myBank/cards/fraudCheckApi/error` :orange_book: |
+fraudCheck **Orchestrator** (requestCardBlock) | `myBank/cards/fraudCheckApi/reply/fraudService/status/v1/>` :hearts: | `myBank/cards/cardService/block/req/v1/{platform}/{partner}/{UUID}` :blue_book: | `myBank/cards/fraudCheckApi/error` :orange_book: |
+fraudCheck **Orchestrator** (returnFinalResponse) | `myBank/cards/fraudCheckApi/reply/fraudService/status/v1/>` :diamonds: | Topic string as provided in message header `app_fraudCheckMediator_replyTo` | `myBank/cards/fraudCheckApi/error` :orange_book: |
+fraudCheck Error Handling | `myBank/cards/fraudCheckApi/error` :orange_book: | Topic string as provided in message header `app_fraudCheckMediator_replyTo` | N/A |
+Transactions History | `myBank/cards/txnService/history/req/v1/>` :closed_book: | Topic string as provided in message header `reply_to_destination` :spades: | N/A |
+Fraud Detection | `myBank/cards/fraudService/status/req/v1/>` :green_book: | Topic string as provided in message header `reply_to_destination`  :hearts: | N/A |
+Card Block | `myBank/cards/cardService/block/req/v1/>` :blue_book: | Topic string as provided in message header `reply_to_destination` :diamonds: | N/A |
+
+( :books: The colour coding is provided to visually link the publish topic of one service with the subscribe topic or wildcard of another.)
 
 ## Contributing
 
