@@ -9,7 +9,8 @@
 * [Running the demo services](#running-the-demo-services)
   * [Pre-requisites](#pre-requisites-white_check_mark)
   * [Step by step instructions](#step-one-start-the-mediator-and-error-handling-service)
-* [Appendix: Topic Taxonomy](#appendix-topic-taxonomy) 
+* [Appendix A: Topic Taxonomy](#appendix-a-topic-taxonomy) 
+* [Appendix B: Event Portal Design](#appendix-b-event-portal-design) 
 * [Contributing](#contributing)
 * [Authors](#authors)
 * [License](#license)
@@ -228,7 +229,7 @@ After a 3 second wait, you should see a response like so:
 
 ### And that's it!
 
-## Appendix: Topic Taxonomy
+## Appendix A: Topic Taxonomy
 
 These sample services use a topic taxonomy to demonstrate three important concepts:
 1. Wildcarded subscription by consumers to attract events of interest
@@ -252,6 +253,13 @@ Fraud Detection | `myBank/cards/fraudService/status/req/v1/>` :green_book: | Top
 Card Block | `myBank/cards/cardService/block/req/v1/>` :blue_book: | Topic string as provided in message header `reply_to_destination` :diamonds: | N/A |
 
 ( :books: The colour coding is provided to visually link the publish topic of one service with the subscribe topic or wildcard of another.)
+
+## Appendix B: Event Portal Design
+
+The design for these services has been modelled in [PubSub+ Event Portal](https://solace.com/products/portal/) and a JSON export of the Application Domain is available [here](https://raw.githubusercontent.com/itsJamilAhmed/scs-credit-card-demo/main/event-portal/myBank-Credit-Cards-Event-Portal-Export.json) for those who wish to import it into their own Event Portal.
+
+![Event Portal Graph View of Design](https://github.com/itsJamilAhmed/scs-credit-card-demo/blob/main/event-portal/event-portal-graph-view.jpg?raw=true)
+
 
 ## Contributing
 
