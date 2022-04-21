@@ -59,34 +59,22 @@ spring:
             consumer:
               queueAdditionalSubscriptions: myBank/cards/fraudCheckApi/status/v1/>
               provisionDurableQueue: true
-              queueNamePrefix: ""
-              useFamiliarityInQueueName: false
-              useDestinationEncodingInQueueName: false
-              useGroupNameInQueueName: false
+              queueNameExpression: destination
         
           getFraudStatus-in-0:
             consumer:
               queueAdditionalSubscriptions: myBank/cards/fraudCheckApi/reply/txnService/history/v1/>
               provisionDurableQueue: true
-              queueNamePrefix: ""
-              useFamiliarityInQueueName: false
-              useDestinationEncodingInQueueName: false
-              useGroupNameInQueueName: false      
+              queueNameExpression: destination     
               
           requestCardBlock-in-0:
             consumer:
               queueAdditionalSubscriptions: myBank/cards/fraudCheckApi/reply/fraudService/status/v1/>
               provisionDurableQueue: true
-              queueNamePrefix: ""
-              useFamiliarityInQueueName: false
-              useDestinationEncodingInQueueName: false
-              useGroupNameInQueueName: false     
+              queueNameExpression: destination     
         
           returnFinalResponse-in-0:
             consumer:
               queueAdditionalSubscriptions: myBank/cards/fraudCheckApi/reply/fraudService/status/v1/>
               provisionDurableQueue: true
-              queueNamePrefix: ""
-              useFamiliarityInQueueName: false
-              useDestinationEncodingInQueueName: false
-              useGroupNameInQueueName: false                              
+              queueNameExpression: destination                              
