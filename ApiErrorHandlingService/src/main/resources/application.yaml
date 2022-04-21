@@ -41,17 +41,11 @@ spring:
             consumer:
               queueAdditionalSubscriptions: myBank/cards/fraudCheckApi/error
               provisionDurableQueue: true
-              queueNamePrefix: ""
-              useFamiliarityInQueueName: false
-              useDestinationEncodingInQueueName: false
-              useGroupNameInQueueName: false
+              queueNameExpression: destination
               
           sendTimeoutResponse-in-0:
             consumer:
               provisionDurableQueue: true
-              queueNamePrefix: ""
-              useFamiliarityInQueueName: false
-              useDestinationEncodingInQueueName: false
-              useGroupNameInQueueName: false              
+              queueNameExpression: destination             
               
               

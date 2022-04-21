@@ -32,9 +32,6 @@ spring:
             consumer:
               queueAdditionalSubscriptions: POST/fraudCheck
               provisionDurableQueue: true
-              queueNamePrefix: ""
-              useFamiliarityInQueueName: false
-              useDestinationEncodingInQueueName: false
-              useGroupNameInQueueName: false
+              queueNameExpression: destination
               
               

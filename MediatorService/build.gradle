@@ -18,7 +18,7 @@ ext {
 }
 
 dependencies {
-	implementation 'com.solace.spring.cloud:spring-cloud-starter-stream-solace'
+	implementation 'com.solace.spring.cloud:spring-cloud-starter-stream-solace:3.3.1'
 	implementation 'org.springframework.cloud:spring-cloud-stream'
 	implementation 'com.googlecode.json-simple:json-simple:1.1.1'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
