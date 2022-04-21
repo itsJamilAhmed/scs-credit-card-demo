@@ -75,6 +75,7 @@ public class MediatorServiceApplication {
 			String payload = input.getPayload();
 			JSONObject jsonMessage;
 			log.info("Received message: " + input.getPayload() + " on topic: " + input.getHeaders().get(SOL_DESTINATION_KEY));
+			log.info("Headers on the message: " + input.getHeaders().toString());
 			
 			// Expecting valid json so that payload elements can be used to construct to outbound topic destination
 			
@@ -123,8 +124,8 @@ public class MediatorServiceApplication {
 					.setHeader(MEDIATOR_REPLYTO_DESTINATION_KEY, input.getHeaders().getOrDefault(SOL_REPLYTO_DESTINATION_KEY, ""))
 					.setHeader(MEDIATOR_MSG_TIMESTAMP_KEY,       input.getHeaders().getOrDefault(SOL_MSG_TIMESTAMP_KEY, ""))
 					.setHeader(SOURCE_PLATFORM_NAME_KEY,         SOURCE_PLATFORM_NAME)
-					.setHeader(SOL_DMQ_ENABLE_KEY,				 true)
-					.setHeader(SOL_TTL_KEY,				 		 REQUEST_TIMEOUT_TRIGGER_MS)
+					.setHeader(SOL_DMQ_ENABLE_KEY,               true)
+					.setHeader(SOL_TTL_KEY,                      REQUEST_TIMEOUT_TRIGGER_MS)
 					.setHeader(BinderHeaders.TARGET_DESTINATION, outputTopic)
 					.build();
 			
