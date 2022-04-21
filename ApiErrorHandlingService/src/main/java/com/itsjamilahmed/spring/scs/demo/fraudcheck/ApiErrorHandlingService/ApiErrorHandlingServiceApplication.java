@@ -46,6 +46,9 @@ public class ApiErrorHandlingServiceApplication {
 			String payload = input.getPayload();
 			JSONObject jsonMessage;
 			log.info("Received error message to process: " + input.getPayload());
+
+			String outputTopic = "";		// Dynamically determined on a per-message basis
+			String correlationID = "";		// Helps requesting applications correlate this reply to their outstanding response
 			
 			try {
 				jsonMessage = (JSONObject) new JSONParser().parse(payload);
@@ -65,12 +68,17 @@ public class ApiErrorHandlingServiceApplication {
 			
 			jsonMessage.put("elapsedTimeMs", errorMessageTimestampMs - originalRequestTimestampMs); 
 			
+			outputTopic = input.getHeaders().getOrDefault(MEDIATOR_REPLYTO_DESTINATION_KEY, "error/fallback/topic/here").toString();
+			correlationID = input.getHeaders().getOrDefault(MEDIATOR_CORRELATION_ID_KEY, "").toString();
+			
 			// There is an external HTTP API call expected to be waiting for this response, with the reply-to topic known as well for the TARGET_DESTINATION header.
 			// If this is missing to trigger an exception, something has gone very wrong...
 			Message<String> output = MessageBuilder.withPayload(jsonMessage.toString())
-					.setHeader(SOL_CORRELATION_ID_KEY, input.getHeaders().getOrDefault(MEDIATOR_CORRELATION_ID_KEY, ""))
-					.setHeader(BinderHeaders.TARGET_DESTINATION, input.getHeaders().getOrDefault(MEDIATOR_REPLYTO_DESTINATION_KEY, "error/fallback/topic/here").toString())
+					.setHeader(SOL_CORRELATION_ID_KEY, correlationID)
+					.setHeader(BinderHeaders.TARGET_DESTINATION, outputTopic)
 					.build();
+			
+			log.info("Sending timeout final reply message: " + output.getPayload() + " on topic: " + outputTopic + " with correlation-ID: " + correlationID);
 			
 			return output;
 		};
@@ -89,6 +97,9 @@ public class ApiErrorHandlingServiceApplication {
 			JSONObject jsonMessage;
 			log.info("Received timeout message to process: " + input.getPayload());
 			
+			String outputTopic = "";		// Dynamically determined on a per-message basis
+			String correlationID = "";		// Helps requesting applications correlate this reply to their outstanding response
+			
 			jsonMessage = new JSONObject();
 			jsonMessage.put("status", "error");
 			jsonMessage.put("errorMsg", "This service is currently unavailable. Please try again later.");	
@@ -100,12 +111,17 @@ public class ApiErrorHandlingServiceApplication {
 			
 			jsonMessage.put("elapsedTimeMs", errorMessageTimestampMs - originalRequestTimestampMs); 
 			
+			outputTopic = input.getHeaders().getOrDefault(MEDIATOR_REPLYTO_DESTINATION_KEY, "error/fallback/topic/here").toString();
+			correlationID = input.getHeaders().getOrDefault(MEDIATOR_CORRELATION_ID_KEY, "").toString();
+			
 			// There is an external HTTP API call expected to be waiting for this response, with the reply-to topic known as well for the TARGET_DESTINATION header.
 			// If this is missing to trigger an exception, something has gone very wrong...
 			Message<String> output = MessageBuilder.withPayload(jsonMessage.toString())
-					.setHeader(SOL_CORRELATION_ID_KEY, input.getHeaders().getOrDefault(MEDIATOR_CORRELATION_ID_KEY, ""))
-					.setHeader(BinderHeaders.TARGET_DESTINATION, input.getHeaders().getOrDefault(MEDIATOR_REPLYTO_DESTINATION_KEY, "error/fallback/topic/here").toString())
+					.setHeader(SOL_CORRELATION_ID_KEY, correlationID)
+					.setHeader(BinderHeaders.TARGET_DESTINATION, outputTopic)
 					.build();
+			
+			log.info("Sending timeout final reply message: " + output.getPayload() + " on topic: " + outputTopic + " with correlation-ID: " + correlationID);
 			
 			return output;
 		};
