@@ -28,7 +28,7 @@ spring:
           environment: 
             solace: 
               java: 
-                host: tcp://public-demo-broker.messaging.solace.cloud:55555 
+                host: tcps://public-demo-broker.messaging.solace.cloud:55443 
                 msgVpn: cloud-demo-solace-uk 
                 clientUsername: scs-demo-public-user 
                 clientPassword: scs-demo-public-user 
