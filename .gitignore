@@ -1,0 +1,12 @@
+
+/MediatorService/.gradle
+/MediatorService/build
+/ApiErrorHandlingService/.gradle
+/CardBlockService/.gradle
+/FraudDetectionService/.gradle
+/OrchestratorService/.gradle
+/TransactionsHistoryService/.gradle
+/ApiErrorHandlingService/build
+/CardBlockService/build
+/FraudDetectionService/build
+/OrchestratorService/build
